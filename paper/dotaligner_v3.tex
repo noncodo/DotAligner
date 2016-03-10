@@ -25,6 +25,7 @@
 \newenvironment{courier}{\fontfamily{courier}\selectfont}{\par}
 
 \newcommand\dotaligner{\texttt{DotAligner}}
+\newcommand\bralibase{\texttt{BRAliBase 2.1}}
 \newcommand\pmcomp{\texttt{pmcomp}}
 \newcommand\pmmulti{\texttt{pmmulti}}
 \newcommand\clustgraph{\texttt{ClustGraph}}
@@ -45,15 +46,15 @@
 
 \title{De-novo identification of homologous RNA secondary structure domains using base-pairing probabilities}
 
-\author{\authorname{Stefan E Seemann\sup{1,2}, Martin A Smith\sup{1,3}, John S Mattick\sup{1,3}}
-\affiliation{\sup{1}Garvan Institute of Medical Research, 384 Victoria Street, Sydney 2010, Australia}
-\affiliation{\sup{2}University of Copenhagen, Groennegaardsvej 3, Frederiksberg, Denmark}
-\affiliation{\sup{3}St Vincent’s Clinical School, UNSW, Sydney 2010, Australia}
+\author{\authorname{Stefan E Seemann\sup{*,2,3}, Martin A Smith\sup{*,3,4}, XiuCheng Quek\sup{3,4}, John S Mattick\sup{3,4}}
+\affiliation{\sup{*}Contributed equally}
+\affiliation{\sup{2}Garvan Institute of Medical Research, 384 Victoria Street, Sydney 2010, Australia}
+\affiliation{\sup{3}University of Copenhagen, Groennegaardsvej 3, Frederiksberg, Denmark}
+\affiliation{\sup{4}St Vincent’s Clinical School, UNSW, Sydney 2010, Australia}
 \email{seemann@rth.dk}
 }
 
-\keywords{RNA secondary structure, Basepair probability, Structure-based alignment}
-
+\keywords{RNA secondary structure,  Basepair probability, Structural alignment, Clustering, RNA -protein interactions, RNA immunoprecipitation, high-throughput sequencing }
 
 %at least 70 and at most 200 words
 
@@ -355,50 +356,110 @@ random.
 
 
 \section{\uppercase{Results}}
+\subsection{Parameter optimization on pairwise alignments}
+The weight function of \dotaligner{} incorporates several parameters that were 
+optimized using  8,976 pairwise RNA structure alignments encompassing 36 RNA 
+structure families (7,859 sequences) from the  \bralibase{} 2.1 reference dataset 
+\cite{Wilm2006enhanced}. We determined the optimal default parameters for 
+\dotaligner{} by performing pairwise alignments on the unaligned native \bralibase{} 
+sequences using all combinations of the following parameters:
+\begin{itemize}
+	\item $\kappa$ weight of sequence (string) similarity compared to structure 
+	(dot plot) similarity;
+	\item $g_o$ and $g_{ext}$ are the gap-open and gap-extension penalties, 
+	respectively;
+	\item When using similarity matrices $M_{seq}$ and $M_{paired}$ (default), 
+	the relative weight, $\theta$, of sequence/basepair similarity \textit{versus} 
+	the similarity of unpaired/pairing probability.
+\end{itemize}
 
-\noindent The accuracy of the proposed algorithm is assessed using the
-specificity (SP) and the sensitivity (SN), which are defined as follows:
+\noindent We compared the pairwise alignment results to the reference alignments 
+using two key metrics previously shown to be the most accurate at detecting 
+structural conservation \cite{gruber2008strategies}: 
+ \begin{enumerate}
+\item  The Structural Conservation Index (SCI), a robust thermodynamic measure 
+of structural compatibility where the Minimum Free Energy (MFE) of the alignment 
+consensus---calculated with RNAalifold from the Vienna RNA package 
+\cite{lorenz2011viennarna}---is normalized by the average MFE of the individual 
+sequences. For pairwise alignments, the SCI is calculated as:
+\begin{equation}\label{sci}
+	SCI =  MFE_{Cons} /  \left( \frac{ MFE_1 + MFE_2 }{ 2} \right)   
+\end{equation} 
+and 	
+\begin{equation}\label{dsci}
+	\Delta SCI = SCI_{Reference} - SCI_{DotAligner}
+\end{equation} 
+ \item  The topological edit distance between the experimental alignment consensus 
+ and that from the reference using RNAdistance from the Vienna RNA package. 
+ \end{enumerate}
 
-\begin{equation}\label{eq13}
-	SP = \frac{TN}{TN + FP}, \hspace{5px} SN = \frac{TP}{TP + FN}
-\end{equation}
+\noindent The resulting 26,398,295 pairwise alignments were filtered to retain
+ only those with an RNAdistance score equal to 0 (8,078,665), indicating that the 
+ alignment generated the exact structure reported in the reference.  Of these, 
+7,624,073 (94.4\%) produced a SCI score as good as the reference alignment, 
+including 79,511(1.0\%) where the SCI from \dotaligner{} alignments scored better. 
+Interestingly, the latter can be assigned to most of the RNA families represented 
+in \bralibase  2.1 (25 out of 36). \RED{This  suggests that there is slight room for 
+improvement in the representation of the structures in the reference alignments}. Furthermore, 
+many of the results encountered while optimizing \dotaligner{} parameters were 
+associated with greater SCI scores than the reference alignments (2,774, 733; 34.3\%), 
+but were ignored given a non-null edit distance with the reference. 
+Although some of the alignments produced may be closer to the biological reality 
+than the \bralibase{} representatives, which encompass many sequences automatically 
+added into RFAM given their similarity to covariance models, we dismissed this 
+possibility to ensure both metrics were compatible with and directly comparable 
+to the reference structures. 
 
-where TP is the number of correctly predicted positives, FP is the number of
-incorrectly predicted positives, TN is the number of correctly predicted
-negatives, and FN is the number of incorrectly predicted negatives.
-Furthermore, the area under the receiver operating characteristic (ROC) curve
-was used to optimize the different combinations of parameters. The ROC curve
-plots the true positive rates (SN) as a function of the false positive rates (1
-- SP) for varying parameters.
+\begin{tabular}{|c|c|}
+\hline 
+$\Delta{} SCI < 0$  & $\Delta{} SCI \geq 0$ \\ 
+\hline 
+5S rRNA & Cobalamin \\
+5.8S rRNA & Entero CRE \\
+Entero 5 CRE & HCV SLIV \\
+Entero OriR & Hammerhead 1 \\
+HCV SLVII & HepC CRE \\
+HIV FE & Histone3 \\
+HIV GSL3 & Lysine\\
+HIV PBS & SRP bact \\
+Hammerhead 3 & U1 \\
+IRES HCV & UnaL2 \\
+IRES Picorna & yybP-ykoY \\
+Intron gpII & \\
+K chan RES & \\
+Retroviral psi & \\
+SECIS & \\
+SRP euk arch & \\
+S box & \\
+T-box & \\
+TAR & \\
+THI & \\
+U2 & \\
+U6 & \\
+gcvT & \\
+sno 14q I II & \\
+tRNA & \\
+\hline 
+\end{tabular} 
 
-\GRAY{As benchmark data set we selected 300 sequences of 10 H/ACA-box snoRNA families
-from Rfam version 11.0 seed alignments with average pairwise sequence identity
-(APSI) $< 90\%$ and sequence lengths of $>$ 130bp and $<$ 140bp: \emph{SNORA1},
-\emph{SNORA13}, \emph{SNORA14}, \emph{SNORA15}, \emph{SNORA16}, \emph{SNORA17},
-\emph{SNORA18}, \emph{SNORA19}, \emph{SNORA2}, \emph{SNORA22}. We chose only
-sequences of similar length because step 1 of \dotaligner{} performs global
-alignments.}
+Several different parameters gave the same results, where the alignments are identical or compatible with the reference alignments.
+ because the reference sequences/alignments are fairly similar to each other in terms of size and structure. 
 
 
-\subsection{Parameter optimization}
 
-\noindent  The weight function of \dotaligner{} includes the following
-parameters whose settings are discussed in this section:
+There are additional \dotaligner{} parameters that may contribute to alignment 
+accuracy (see below). Based on the initial optimization results, their contribution
+to alignment accuracy on the \bralibase{} reference set is less significant than the
+aforementioned variables. These parameters include: 
+\begin{itemize}
+	\item $T$ measure of the relative importance of the optimal string alignment.
+	\item The usage of statistical substitution matrices $R_{seq}$ and $R_{paired}$ instead of  similarity matrices $M_{seq}$ and $M_{paired}$, and
+	\item The relative weight $\zeta$ of the unpaired probability compared to the 
+	ratio of upstream pairing probability if substitution matrix $R_{seq}$ is used;
+	\item The number $s$ of suboptimal alignments to consider ;
+	\item The minimal unpaired/pairing probability $p_0$ ( default 0.0005).
+\end{itemize}
 
-\begin{enumerate}
-	\item $\kappa$ is weight of sequence (string) similarity compared to structure (dot plot) similarity
-	\item usage of similarity matrices $M_{seq}$ and $M_{paired}$ or statistical substitution matrices $R_{seq}$ and $R_{paired}$
-	\item if similarity matrices $M_{seq}$ and $M_{paired}$ are used then $\theta$ is weight of sequence/basepair similarity compared to similarity of unpaired/pairing probability
-	\item if substitution matrix $R_{seq}$ is used then $\zeta$ is weight of unpaired probability compared to ratio of upstream pairing probability 
-	\item $g_o$ and $g_{ext}$ are the gap-open and gap-extension penalties respectively
-	\item $s$ is number of examined suboptimal alignment
-	\item $T$ is a measure of the relative importance of the optimal string alignment
-	\item $p_0$ is minimal considered unpaired/pairing probability and set to 0.0005
-\end{enumerate}
-
-\RED{Parameter optimization by using Bralibase 2.1? Parameters 1 to 7 have to
-be optimized!!! Compare with reference alignments by the SPS measure introduced
-in Bralibase 2.1 and SCI measure (see CARNA paper).}
 
 \GRAY{The ROC curve in Figure \ref{fig:roc} shows the lowest $\gamma$ as most
 sensitive (SN $=$ 0.61) and the highest $\gamma$ as most specific (SP
@@ -454,6 +515,29 @@ the following framework:
 \item Generate dissimilarity matrix $dM_R$ from scoring metric of (1.) from curated RFAM alignments (constrained alignment). 
 \item Calculate the correlation coefficient between $dM_A$ and $dM_R$ using the Mantel correlation statistic (the cross-product between the standardised distances). 
 \end{enumerate}
+
+\noindent The accuracy of the proposed algorithm is assessed using the
+specificity (SP) and the sensitivity (SN), which are defined as follows:
+
+\begin{equation}\label{eq13}
+	SP = \frac{TN}{TN + FP}, \hspace{5px} SN = \frac{TP}{TP + FN}
+\end{equation}
+
+where TP is the number of correctly predicted positives, FP is the number of
+incorrectly predicted positives, TN is the number of correctly predicted
+negatives, and FN is the number of incorrectly predicted negatives.
+Furthermore, the area under the receiver operating characteristic (ROC) curve
+was used to optimize the different combinations of parameters. The ROC curve
+plots the true positive rates (SN) as a function of the false positive rates (1
+- SP) for varying parameters.
+
+\GRAY{As benchmark data set we selected 300 sequences of 10 H/ACA-box snoRNA families
+from Rfam version 11.0 seed alignments with average pairwise sequence identity
+(APSI) $< 90\%$ and sequence lengths of $>$ 130bp and $<$ 140bp: \emph{SNORA1},
+\emph{SNORA13}, \emph{SNORA14}, \emph{SNORA15}, \emph{SNORA16}, \emph{SNORA17},
+\emph{SNORA18}, \emph{SNORA19}, \emph{SNORA2}, \emph{SNORA22}. We chose only
+sequences of similar length because step 1 of \dotaligner{} performs global
+alignments.}
 
 
 \subsection{Benchmark data generation} 

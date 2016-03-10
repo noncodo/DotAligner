@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: dotaligner_v3.aux
+The style file: apalike.bst
+Database file #1: dotaligner.bib
+Warning--empty publisher in Palu2010
+You've used 19 entries,
+            1935 wiz_defined-function locations,
+            611 strings with 7433 characters,
+and the built_in function-call counts, 9003 in all, are:
+= -- 855
+> -- 484
+< -- 5
++ -- 173
+- -- 171
+* -- 850
+:= -- 1578
+add.period$ -- 58
+call.type$ -- 19
+change.case$ -- 181
+chr.to.int$ -- 19
+cite$ -- 20
+duplicate$ -- 286
+empty$ -- 567
+format.name$ -- 192
+if$ -- 1718
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 19
+newline$ -- 98
+num.names$ -- 59
+pop$ -- 146
+preamble$ -- 1
+purify$ -- 180
+quote$ -- 0
+skip$ -- 214
+stack$ -- 0
+substring$ -- 635
+swap$ -- 35
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 114
+warning$ -- 1
+while$ -- 72
+width$ -- 0
+write$ -- 250
+(There was 1 warning)

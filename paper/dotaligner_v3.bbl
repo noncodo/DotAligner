@@ -1,0 +1,113 @@
+\begin{thebibliography}{}
+
+\bibitem[Bernhart et~al., 2006]{Bernhart:Hofacker:Stadler:Local_RNA_base:2006}
+Bernhart, S.~H., Hofacker, I.~L., and Stadler, P.~F. (2006).
+\newblock {Local RNA base pairing probabilities in large sequences}.
+\newblock {\em Bioinformatics}, 22:614--615.
+
+\bibitem[Burge et~al., 2013]{Burge23125362}
+Burge, S.~W., Daub, J., Eberhardt, R., Tate, J., Barquist, L., Nawrocki, E.~P.,
+  Eddy, S.~R., Gardner, P.~P., and Bateman, A. (2013).
+\newblock {Rfam 11.0: 10 years of \{RNA\} families.}
+\newblock {\em Nucleic Acids Res}, 41(Database issue):D226--32.
+
+\bibitem[Dalli et~al., 2006]{Dalli16613908}
+Dalli, D., Wilm, A., Mainz, I., and Steger, G. (2006).
+\newblock {STRAL}: progressive alignment of non-coding {RNA} using base pairing
+  probability vectors in quadratic time.
+\newblock {\em Bioinformatics}, 22(13):1593--1599.
+
+\bibitem[Dotu et~al., 2010]{Dotu19908358}
+Dotu, I., Lorenz, W.~A., {Van Hentenryck}, P., and Clote, P. (2010).
+\newblock {\{RNA\} structural segmentation.}
+\newblock {\em Pac Symp Biocomput}, pages 57--68.
+
+\bibitem[Gardner et~al., 2005]{Gardner15860779}
+Gardner, P.~P., Wilm, A., and Washietl, S. (2005).
+\newblock {A benchmark of multiple sequence alignment programs upon structural
+  \{RNAs\}.}
+\newblock {\em Nucleic Acids Res}, 33(8):2433--2439.
+
+\bibitem[Gupta et~al., 2010]{Gupta20393566}
+Gupta, R.~A., Shah, N., Wang, K.~C., Kim, J., Horlings, H.~M., Wong, D.~J.,
+  Tsai, M.~C., Hung, T., Argani, P., Rinn, J.~L., Wang, Y., Brzoska, P., Kong,
+  B., Li, R., West, R.~B., van~de Vijver, M.~J., Sukumar, S., and Chang, H.~Y.
+  (2010).
+\newblock {Long non-coding RNA HOTAIR reprograms chromatin state to promote
+  cancer metastasis.}
+\newblock {\em Nature}, 464(7291):1071--1076.
+
+\bibitem[Heyne et~al., 2012]{Heyne22689765}
+Heyne, S., Costa, F., Rose, D., and Backofen, R. (2012).
+\newblock {GraphClust: alignment-free structural clustering of local \{RNA\}
+  secondary structures.}
+\newblock {\em Bioinformatics}, 28(12):i224--32.
+
+\bibitem[Hofacker et~al., 2004]{Hofacker15073017}
+Hofacker, I.~L., Bernhart, S.~H., and Stadler, P.~F. (2004).
+\newblock {Alignment of RNA base pairing probability matrices.}
+\newblock {\em Bioinformatics}, 20(14):2222--2227.
+
+\bibitem[Klein and Eddy, 2003]{Klein14499004}
+Klein, R. and Eddy, S. (2003).
+\newblock {RSEARCH}: finding homologs of single structured {RNA} sequences.
+\newblock {\em BMC Bioinformatics}, 4:44.
+
+\bibitem[Lorenz et~al., 2011]{lorenz2011viennarna}
+Lorenz, R., Bernhart, S.~H., Zu~Siederdissen, C.~H., Tafer, H., Flamm, C.,
+  Stadler, P.~F., and Hofacker, I.~L. (2011).
+\newblock Viennarna package 2.0.
+\newblock {\em Algorithms for Molecular Biology}, 6(1):1.
+
+\bibitem[McCaskill, 1990]{McCaskill:1990}
+McCaskill, J.~S. (1990).
+\newblock {The equilibrium partition function and base pair binding
+  probabilities for \{RNA\} secondary structure}.
+\newblock {\em Biopolymers}, 29(6-7):1105--1119.
+
+\bibitem[Muckstein et~al., 2002]{Muckstein12385998}
+Muckstein, U., Hofacker, I., and Stadler, P. (2002).
+\newblock Stochastic pairwise alignments.
+\newblock {\em Bioinformatics}, 18 Suppl 2:S153--60.
+
+\bibitem[Pal\`{u} et~al., 2010]{Palu2010}
+Pal\`{u}, A., M\"{o}hl, M., and Will, S. (2010).
+\newblock {A Propagator for Maximum Weight String Alignment with Arbitrary
+  Pairwise Dependencies}.
+\newblock In Cohen, D., editor, {\em Principles and Practice of Constraint
+  Programming -- CP 2010}, pages 167--175. Lecture no edition.
+
+\bibitem[Sankoff, 1985]{sankoff85}
+Sankoff, D. (1985).
+\newblock {Simultaneous solution of the \{RNA\} folding, alignment and
+  protosequence problems.}
+\newblock {\em SIAM J. Appl. Math.}, 45:810--825.
+
+\bibitem[Sato et~al., 2008]{Sato18647390}
+Sato, K., Mituyama, T., Asai, K., and Sakakibara, Y. (2008).
+\newblock {Directed acyclic graph kernels for structural \{RNA\} analysis.}
+\newblock {\em BMC Bioinformatics}, 9:318.
+
+\bibitem[Seemann et~al., 2008]{Seemann2008}
+Seemann, S.~E., Gorodkin, J., and Backofen, R. (2008).
+\newblock {Unifying evolutionary and thermodynamic information for RNA folding
+  of multiple alignments.}
+\newblock {\em Nucleic acids research}, 36(20):6355--62.
+
+\bibitem[Sorescu et~al., 2012]{Sorescu2012}
+Sorescu, D.~A., M\"{o}hl, M., Mann, M., Backofen, R., and Will, S. (2012).
+\newblock {CARNA--alignment of RNA structure ensembles.}
+\newblock {\em Nucleic acids research}, 40(Web Server issue):W49--53.
+
+\bibitem[Will et~al., 2007]{Will17432929}
+Will, S., Reiche, K., Hofacker, I.~L., Stadler, P.~F., and Backofen, R. (2007).
+\newblock {Inferring noncoding \{RNA\} families and classes by means of
+  genome-scale structure-based clustering.}
+\newblock {\em PLoS Comput Biol}, 3(4):e65.
+
+\bibitem[Wilm et~al., 2006]{Wilm2006enhanced}
+Wilm, A., Mainz, I., and Steger, G. (2006).
+\newblock An enhanced rna alignment benchmark for sequence alignment programs.
+\newblock {\em Algorithms for molecular biology}, 1(1):1.
+
+\end{thebibliography}

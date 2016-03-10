@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.22)  9 MAR 2016 16:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.22)  10 MAR 2016 22:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -317,26 +317,27 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \ALC@tlm=\skip62
 \algorithmicindent=\skip63
 )
-No file dotaligner_v3.aux.
+(./dotaligner_v3.aux)
 \openout1 = `dotaligner_v3.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 44.
-LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 44
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 45.
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 45
 .
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omspzccm.fd
 File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
 )
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -403,103 +404,73 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 79.
-LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 79
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 80.
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 80
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptmcm.fd
 File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 79
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 80
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omlptmcm.fd
 File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+psycm on input line 79
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 80
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omxpsycm.fd
 File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 79.
+LaTeX Font Info:    Try loading font information for U+msa on input line 80.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 79.
+LaTeX Font Info:    Try loading font information for U+msb on input line 80.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.69997> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 79.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
 Missing character: There is no â in font ptmri7t!
 Missing character: There is no € in font ptmri7t!
 Missing character: There is no ™ in font ptmri7t!
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 80--80
 
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <13> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 82.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 86.
-
-LaTeX Warning: Citation `Gupta20393566' on page 1 undefined on input line 86.
-
-
-LaTeX Warning: Citation `Burge23125362' on page 1 undefined on input line 89.
-
-
-LaTeX Warning: Citation `Gardner15860779' on page 1 undefined on input line 98.
-
-
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 109.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 109.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 109.
 
-Underfull \hbox (badness 1270) in paragraph at lines 104--114
+Underfull \hbox (badness 1270) in paragraph at lines 105--115
 []\OT1/ptm/m/n/10 For clus-ter-ing of RNA do-mains a dis-sim-i-lar-
  []
 
 
-Underfull \hbox (badness 1552) in paragraph at lines 104--114
+Underfull \hbox (badness 1552) in paragraph at lines 105--115
 \OT1/ptm/m/n/10 pair-wise de-pen-den-cies (for base pair-ings). The
  []
-
-
-LaTeX Warning: Citation `sankoff85' on page 1 undefined on input line 115.
-
-
-LaTeX Warning: Citation `McCaskill:1990' on page 1 undefined on input line 120.
-
-
-
-LaTeX Warning: Citation `Hofacker15073017' on page 1 undefined on input line 12
-2.
-
-
-LaTeX Warning: Citation `Will17432929' on page 1 undefined on input line 123.
-
-
-LaTeX Warning: Citation `Palu2010' on page 1 undefined on input line 128.
-
-
-LaTeX Warning: Citation `Sorescu2012' on page 1 undefined on input line 128.
 
 [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -507,62 +478,29 @@ LaTeX Warning: Citation `Sorescu2012' on page 1 undefined on input line 128.
 
 
 ]
-
-LaTeX Warning: Citation `Sato18647390' on page 2 undefined on input line 133.
-
-
-LaTeX Warning: Citation `Heyne22689765' on page 2 undefined on input line 134.
-
-
-LaTeX Warning: Citation `Palu2010' on page 2 undefined on input line 143.
+Underfull \hbox (badness 1342) in paragraph at lines 116--132
+[]\OT1/ptm/m/n/10 Simultaneous align-ment and fold-ing (Sankoff,
+ []
 
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 150.
+(amsmath)                 on input line 151.
 
 
-LaTeX Warning: Citation `Muckstein12385998' on page 2 undefined on input line 1
-74.
-
-
-Underfull \hbox (badness 1762) in paragraph at lines 184--186
+Underfull \hbox (badness 1762) in paragraph at lines 185--187
 \OT1/ptm/m/n/10 ce-dure and its weight func-tions im-ple-mented in
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 188.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 189.
 
-LaTeX Warning: Citation `Muckstein12385998' on page 2 undefined on input line 1
-91.
-
-
-Underfull \hbox (badness 1038) in paragraph at lines 190--193
+Underfull \hbox (badness 1038) in paragraph at lines 191--194
 \OT1/ptm/m/n/10 In step 1 the com-pu-ta-tion of the par-ti-tion func-
  []
 
-
-LaTeX Warning: Citation `Dalli16613908' on page 2 undefined on input line 209.
-
-
-LaTeX Warning: Reference `eq1' on page 2 undefined on input line 210.
-
 [2]
-
-LaTeX Warning: Citation `Klein14499004' on page 3 undefined on input line 255.
-
-
-LaTeX Warning: Reference `eq1' on page 3 undefined on input line 268.
-
-
-LaTeX Warning: Citation `Muckstein12385998' on page 3 undefined on input line 2
-83.
-
-
-LaTeX Warning: Reference `eq1' on page 3 undefined on input line 285.
-
-
-Overfull \hbox (2.8352pt too wide) detected at line 291
+Overfull \hbox (2.8352pt too wide) detected at line 292
 \OML/ptmcm/m/it/10 W[]\OT1/ptmcm/m/n/10 (\OML/ptmcm/m/it/10 A[]\OT1/ptmcm/m/n/1
 0 ) = \OML/ptmcm/m/it/10 ^^T \OMS/pzccm/m/n/10 ^^B [] \OT1/ptmcm/m/n/10 + (1 \O
 MS/pzccm/m/n/10 ^^@ \OML/ptmcm/m/it/10 ^^T\OT1/ptmcm/m/n/10 ) \OMS/pzccm/m/n/10
@@ -570,113 +508,116 @@ MS/pzccm/m/n/10 ^^@ \OML/ptmcm/m/it/10 ^^T\OT1/ptmcm/m/n/10 ) \OMS/pzccm/m/n/10
  []
 
 
-LaTeX Warning: Reference `sigmam' on page 3 undefined on input line 297.
-
-
-Underfull \hbox (badness 3612) in paragraph at lines 293--300
+Underfull \hbox (badness 3612) in paragraph at lines 294--301
 \OT1/ptm/m/n/10 ment $\OML/ptmcm/m/it/10 A[]$ \OT1/ptm/m/n/10 be-tween the sequ
 ence-based sim-i-lar-ity
  []
 
 
-Overfull \hbox (10.66986pt too wide) detected at line 317
+Overfull \hbox (10.66986pt too wide) detected at line 318
 \OT1/ptmcm/m/n/10 ^^A\OML/ptmcm/m/it/10  \OT1/ptmcm/m/n/10 (\OML/ptmcm/m/it/10 
 i; j; i[]; j[]\OT1/ptmcm/m/n/10 ) = []
  []
 
 
-LaTeX Warning: Reference `sigmam' on page 3 undefined on input line 319.
-
-
-LaTeX Warning: Citation `Klein14499004' on page 3 undefined on input line 329.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 329--331
+Underfull \hbox (badness 10000) in paragraph at lines 330--332
 []\OT1/ptm/m/n/10 Again the log-odd scores $\OML/ptmcm/m/it/10 L$ \OT1/ptm/m/n/
 10 from the
  []
 
 
-Underfull \hbox (badness 1400) in paragraph at lines 329--331
-\OT1/ptm/m/n/10 RIBOSUM85-60 ma-trix (\OT1/ptm/b/n/10 ?\OT1/ptm/m/n/10 ) are tr
-ans-formed to
+Underfull \hbox (badness 1546) in paragraph at lines 330--332
+\OT1/ptm/m/n/10 RIBOSUM85-60 ma-trix (Klein and Eddy, 2003)
+ []
+
+[3]
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 367.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 371--374
+[]\OT1/ptm/m/n/10 When us-ing sim-i-lar-ity ma-tri-ces $\OML/ptmcm/m/it/10 M[]$
+ \OT1/ptm/m/n/10 and
  []
 
 
-LaTeX Warning: Citation `Will17432929' on page 3 undefined on input line 336.
+Underfull \hbox (badness 2600) in paragraph at lines 371--374
+\OML/ptmcm/m/it/10 M[]$ \OT1/ptm/m/n/10 (de-fault), the rel-a-tive weight, $\OM
+L/ptmcm/m/it/10 ^^R$\OT1/ptm/m/n/10 , of
+ []
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
+
+LaTeX Warning: Citation `gruber2008strategies' on page 4 undefined on input lin
+e 378.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+Package epstopdf Info: Source file: <snornal140_roc.eps>
+(epstopdf)                    date: 2016-03-09 16:40:18
+(epstopdf)                    size: 16162 bytes
+(epstopdf)             Output file: <snornal140_roc-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-09 16:40:18
+(epstopdf)                    size: 7476 bytes
+(epstopdf)             Command: <repstopdf --outfile=snornal140_roc-eps-convert
+ed-to.pdf snornal140_roc.eps>
+(epstopdf)             \includegraphics on input line 473.
+Package epstopdf Info: Output file is already uptodate.
+
+<snornal140_roc-eps-converted-to.pdf, id=24, 406.51875pt x 407.5225pt>
+File: snornal140_roc-eps-converted-to.pdf Graphic file (type pdf)
+
+<use snornal140_roc-eps-converted-to.pdf>
+Package pdftex.def Info: snornal140_roc-eps-converted-to.pdf used on input line
+ 473.
+(pdftex.def)             Requested size: 202.31464pt x 202.80934pt.
+
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 513.
+
+
+Underfull \hbox (badness 3323) in paragraph at lines 514--515
+\OT1/ptm/m/n/10 tures and sig-nif-i-cance test-ing with \OT1/pcr/m/n/10 pvclust
+
+ []
+
+
+Underfull \hbox (badness 1348) in paragraph at lines 514--515
+\OT1/ptm/m/n/10 (Suzuki R and Shi-modaira H. Bioin-for-mat-ics
+ []
+
+[5 <./snornal140_roc-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 540--541
 \OT1/ptm/m/it/10 SNORA14\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 SNORA15\OT1/ptm/m/n/
 10 , \OT1/ptm/m/it/10 SNORA16\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 SNORA17\OT1/ptm
 /m/n/10 ,
  []
 
 
-LaTeX Warning: Reference `fig:roc' on page 4 undefined on input line 407.
-
-Package epstopdf Info: Source file: <snornal140_roc.eps>
-(epstopdf)                    date: 2013-11-29 15:58:43
-(epstopdf)                    size: 16162 bytes
-(epstopdf)             Output file: <snornal140_roc-eps-converted-to.pdf>
-(epstopdf)             Command: <repstopdf --outfile=snornal140_roc-eps-convert
-ed-to.pdf snornal140_roc.eps>
-(epstopdf)             \includegraphics on input line 412.
-runsystem(repstopdf --outfile=snornal140_roc-eps-converted-to.pdf snornal140_ro
-c.eps)...executed safely (allowed).
-
-Package epstopdf Info: Result file: <snornal140_roc-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-09 16:36:09
-(epstopdf)                    size: 7476 bytes.
-<snornal140_roc-eps-converted-to.pdf, id=21, 406.51875pt x 407.5225pt>
-File: snornal140_roc-eps-converted-to.pdf Graphic file (type pdf)
-
-<use snornal140_roc-eps-converted-to.pdf>
-Package pdftex.def Info: snornal140_roc-eps-converted-to.pdf used on input line
- 412.
-(pdftex.def)             Requested size: 202.31464pt x 202.80934pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Package amsmath Warning: Foreign command \over;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 452.
-
-
-Underfull \hbox (badness 3323) in paragraph at lines 453--454
-\OT1/ptm/m/n/10 tures and sig-nif-i-cance test-ing with \OT1/pcr/m/n/10 pvclust
-
- []
-
-
-Underfull \hbox (badness 1348) in paragraph at lines 453--454
-\OT1/ptm/m/n/10 (Suzuki R and Shi-modaira H. Bioin-for-mat-ics
- []
-
-[4]
-Underfull \hbox (badness 1132) in paragraph at lines 464--467
+Underfull \hbox (badness 1132) in paragraph at lines 548--551
 \OT1/ptm/m/n/10 RNA struc-tures (global align-ment) and ran-domly
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 464--467
+Underfull \hbox (badness 10000) in paragraph at lines 548--551
 
  []
 
 
-Underfull \hbox (badness 1158) in paragraph at lines 468--473
+Underfull \hbox (badness 1158) in paragraph at lines 552--557
 \OT1/ptm/m/it/10 Then com-pare the in-di-vid-ual Se-qID ranges to a
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 468--473
+Underfull \hbox (badness 10000) in paragraph at lines 552--557
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 474--478
+Underfull \hbox (badness 10000) in paragraph at lines 558--562
 
  []
 
@@ -751,133 +692,113 @@ Missing character: There is no ¬ in font ptmr7t!
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no ¢ in font ptmr7t!
 
-Overfull \hbox (1.5708pt too wide) in paragraph at lines 480--492
+Overfull \hbox (1.5708pt too wide) in paragraph at lines 564--576
 [][] 
  []
 
 
-LaTeX Warning: Reference `fig:roc' on page 5 undefined on input line 535.
+Underfull \vbox (badness 1308) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `fig:dotaligner_g4_cluster' on page 5 undefined on inp
-ut line 535.
-
-
-Underfull \hbox (badness 4765) in paragraph at lines 535--536
+Underfull \hbox (badness 4765) in paragraph at lines 619--620
 \OT1/ptm/m/n/10 ments (in-house im-ple-men-ta-tion of Needleman-
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 619--620
+\OT1/ptm/m/n/10 and \OT1/pcr/m/n/10 LocaRNA[]\OT1/ptm/m/n/10 . Fig-ure 1[] show
+s that the se-quence
  []
 
 Package epstopdf Info: Source file: <snornal140_dotaligner_g4_bootstrap1000.eps
 >
-(epstopdf)                    date: 2013-11-29 15:58:43
+(epstopdf)                    date: 2016-03-09 16:40:18
 (epstopdf)                    size: 75129 bytes
 (epstopdf)             Output file: <snornal140_dotaligner_g4_bootstrap1000-eps
 -converted-to.pdf>
+(epstopdf)                    date: 2016-03-09 16:40:18
+(epstopdf)                    size: 23664 bytes
 (epstopdf)             Command: <repstopdf --outfile=snornal140_dotaligner_g4_b
 ootstrap1000-eps-converted-to.pdf snornal140_dotaligner_g4_bootstrap1000.eps>
-(epstopdf)             \includegraphics on input line 539.
-runsystem(repstopdf --outfile=snornal140_dotaligner_g4_bootstrap1000-eps-conver
-ted-to.pdf snornal140_dotaligner_g4_bootstrap1000.eps)...executed safely (allow
-ed).
+(epstopdf)             \includegraphics on input line 623.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <snornal140_dotaligner_g4_bootstrap1000-eps
--converted-to.pdf>
-(epstopdf)                    date: 2016-03-09 16:36:10
-(epstopdf)                    size: 23664 bytes.
-
-<snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf, id=25, 2945.0025p
+<snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf, id=38, 2945.0025p
 t x 577.15625pt>
 File: snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf Graphic file 
 (type pdf)
 
 <use snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>
 Package pdftex.def Info: snornal140_dotaligner_g4_bootstrap1000-eps-converted-t
-o.pdf used on input line 539.
+o.pdf used on input line 623.
 (pdftex.def)             Requested size: 449.59116pt x 88.10205pt.
 
 Underfull \vbox (badness 4673) has occurred while \output is active []
 
- [5 <./snornal140_roc-eps-converted-to.pdf>]
-Underfull \hbox (badness 1975) in paragraph at lines 570--571
+ [6]
+Underfull \hbox (badness 1975) in paragraph at lines 654--655
 []\OT1/ptm/m/n/10 Generate (dis)similarity ma-trix from pair-wise
  []
 
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 604.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 608--609
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
 []\OT1/ptm/m/n/10 Try op-tion \OT1/pcr/m/n/10 --pw-aligner
  []
 
 
-Underfull \hbox (badness 1152) in paragraph at lines 608--609
+Underfull \hbox (badness 1152) in paragraph at lines 692--693
 \OT1/pcr/m/n/10 path/to/DotAligner \OT1/ptm/m/n/10 and see if it will give
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 611--613
+Underfull \hbox (badness 1681) in paragraph at lines 695--697
 []\OT1/ptm/m/n/10 Will this cause (m)locarna to use the en-tire
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--613
+Underfull \hbox (badness 10000) in paragraph at lines 695--697
 \OT1/ptm/m/n/10 the fol-low-ing pa-ram-e-ters \OT1/pcr/m/n/10 --probabilistic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--613
+Underfull \hbox (badness 10000) in paragraph at lines 695--697
 \OT1/pcr/m/n/10 --consistency-transformation
  []
 
-[6 <./snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>]
+[7 <./snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>]
+(./dotaligner_v3.bbl
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
+(Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 11.
 
-LaTeX Warning: Citation `Bernhart:Hofacker:Stadler:Local_RNA_base:2006' on page
- 7 undefined on input line 639.
+Underfull \hbox (badness 3407) in paragraph at lines 81--85
+[]\OT1/ptm/m/n/9 Sankoff, D. (1985).  Si-mul-ta-ne-ous so-lu-tion of the
+ []
 
+[8]) [9
 
-LaTeX Warning: Citation `Dotu19908358' on page 7 undefined on input line 639.
-
-
-LaTeX Warning: Citation `Hofacker15073017' on page 7 undefined on input line 64
-4.
-
-
-LaTeX Warning: Citation `Seemann2008' on page 7 undefined on input line 647.
-
-No file dotaligner_v3.bbl.
-[7
-
-] (./dotaligner_v3.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./dotaligner_v3.aux) ) 
 Here is how much of TeX's memory you used:
- 4550 strings out of 493089
- 66435 string characters out of 6134841
- 135966 words of memory out of 5000000
- 7905 multiletter control sequences out of 15000+600000
- 64008 words of font info for 138 fonts, out of 8000000 for 9000
+ 4571 strings out of 493089
+ 66691 string characters out of 6134841
+ 137573 words of memory out of 5000000
+ 7916 multiletter control sequences out of 15000+600000
+ 67347 words of font info for 144 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,9n,38p,262b,316s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on dotaligner_v3.pdf (7 pages, 156699 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/ba
+se/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on dotaligner_v3.pdf (9 pages, 167552 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -177,7 +177,7 @@ public class GenerateRFAMsubsets {
 				if (SeqNames[ i ][ j ].matches(".*SS_cons.*") )
 					ss = j ; 
 				SeqChars[ i ][ j ] = Sequences[ j ].toString() ; 						// " 
-				System.err.println("j="+j+" "+SeqNames[ i ][ j ]);
+		//		System.err.println("j="+j+" "+SeqNames[ i ][ j ]);
 			}
 			String Temp = SeqNames[ i ][ ss ];
 			SeqNames[ i ][ ss ] = SeqNames[ i ][ 0 ] ;
@@ -185,7 +185,7 @@ public class GenerateRFAMsubsets {
 			Temp = SeqChars[ i ][ ss ];
 			SeqChars[ i ][ ss ] = SeqChars[ i ][ 0 ] ;
 			SeqChars[ i ][ 0 ] = Temp;
-			System.err.println( "2D: "+ SeqChars[ i ][0] ) ;
+		//	System.err.println( "2D: "+ SeqChars[ i ][0] ) ;
 
 
 			beenSampled[ i ] = new boolean [ Names.length ] ; 	
@@ -270,7 +270,6 @@ public class GenerateRFAMsubsets {
 					break ; 
 				}
 			}
-
 			if ( fam_seqs >1 ){
 				SampledSeqs.put( ">"+RFAM_ID+"_"
 								+SeqNames[ fam ] [ random ].substring(1, SeqNames[ fam ] [ random ].indexOf(".") )
@@ -278,9 +277,10 @@ public class GenerateRFAMsubsets {
 				if (VERBOSE) 												// print out some basic information
 					System.err.println(	"[ NOTE ] added Random Initial selection : \n\t"+SeqNames[ fam ] [ random ]);
 			}
-			
+
+
 			// write it out
-			if ( fam_seqs >= MIN_PER_FAM || fam_seqs == MAX_PER_FAM ) {
+			if ( (fam_seqs >= MIN_PER_FAM || fam_seqs == MAX_PER_FAM) && seqs <= TOTAL_SEQS - 2 ) {
 				Object [] Names = SampledSeqs.keySet().toArray();								// returns an array of keys
 				Object [] Sequences = SampledSeqs.values().toArray();							// returns an array of values
 
@@ -289,8 +289,9 @@ public class GenerateRFAMsubsets {
 				// print out all sampled names and sequences 
 				for ( int x = 0 ; x != Names.length ; x++ ) {
 					if ( seqs == TOTAL_SEQS  ) {
-						System.err.println("[ NOTE ] Enough sequences have been sampled. ");
+						System.err.println("[ NOTE ] Enough sequences have been sampled (hit MAX_SEQS threshold) . ");
 						System.err.println(	"[ NOTE ] Sampled " + (seqs + x -1)  + " to file "+OUT_PATH+"output.fasta"    ); 
+						SampleOutput.close(); 
 						System.exit(0) ;		
 					}
 					else 
@@ -320,7 +321,6 @@ public class GenerateRFAMsubsets {
 					else {
 						String Consensus = SeqChars[ fam ][ 0 ].toString().replaceAll("<","(").replaceAll(">",")").replaceAll("[^<>()]","\\.") ; 
 						SampleOutput.write( Aligned +"\n" + Consensus  + "\n"  ); 
-						SampleOutput.flush();
 					}
 				}
 				System.err.println(	"[ NOTE ] Added " + Names.length + " sequences from "+ RFAM_ID  ); 
@@ -330,16 +330,17 @@ public class GenerateRFAMsubsets {
 				System.err.println( "[ WARNING ] Insufficient sequences (<"+fam_seqs+") sampled for "+ RFAM_ID );
 			if ( seqs >= TOTAL_SEQS ) {
 				System.err.println("[ NOTE ] Enough sequences have been sampled. ");
-				System.err.println(	"[ NOTE ] Sampled " + seqs + " to file "+OUT_PATH+"output.fasta"    ); 
-				
+				System.err.println(	"[ NOTE ] Sampled " + seqs + " to file "+ OUT_PATH + "output.fasta"    ); 
 				SampleOutput.close(); 
 				break;
 			}
 			SampledSeqs.clear(); 
+
 		}
 		System.err.println(	"[ NOTE ] Sampled " + seqs + " to file "+OUT_PATH+"output.fasta"    );
 		SampleOutput.close(); 
 	} 
+
 	//####################################################################################################
 	//     method to calculate pairwise indentity of 2 aligned sequences
 	//####################################################################################################

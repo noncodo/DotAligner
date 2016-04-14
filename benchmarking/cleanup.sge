@@ -1,0 +1,19 @@
+#!/bin/bash
+################################# SGE submission options
+#$ -cwd                       	# Change to current working directory
+#$ -V                         	# Export environment variables into script
+#$ -S /bin/bash					# Enforce bash (don't touch!!!!)
+#$ -o $2_cleanup.log
+
+. /etc/profile.d/modules.sh
+
+###################################################################
+# CLEANUP AND PREPARE MATRIX
+if [[ ! -d $1/$2 ]]; then echo "Directory "`pwd`"/${1}/${2}"; fi
+cat $1/$2/*.$2.score > $1/$2_scores.txt
+echo "Would now run: rm -f $1/$2/*.carna.score"
+SCORE_FILE=$1/$2_scores.txt
+MAXMIN=$( cut -f 5 ${SCORE_FILE} | awk 'BEGIN{min = 10000 ; max = -100000} { if ( $1 > max) {max = $1} else if ( $1 < min ) min = $1 } END {print max" "min}')
+MAX=${MAXMIN% *}
+MIN=${MAXMIN#* }
+awk -v min=$MIN -v max=$MAX 'OFS="\t"{ print $1,$2,$3,$4,($5-min)/(max-min) }' $SCORE_FILE > $1/$2_scores.matrix

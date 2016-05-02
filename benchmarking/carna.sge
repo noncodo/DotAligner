@@ -1,9 +1,14 @@
 #!/bin/bash
-
-################################# SGE submission options
 #$ -cwd                       	# Change to current working directory
 #$ -V                         	# Export environment variables into script
 #$ -S /bin/bash					# Enforce bash (don't touch!!!!)
+#$ -o $1/carna/qsub.$JOB_ID.out
+#$ -o $1/carna/qsub.$JOB_ID.err
+
+. /etc/profile.d/modules.sh
+
+qstat
+qstat -j $JOB_ID
 
 SUBSET=$(ls $1/pairwise_groups/x* | sed ${SGE_TASK_ID}'q;d' ) 
 
@@ -11,7 +16,7 @@ cat $SUBSET | while read line ; do
     echo "----------" >> $1/carna/${SUBSET##*/}.carna
     echo "ALIGNING	"$line >> $1/carna/${SUBSET##*/}.carna
     echo -ne $line"\t" | sed 's/ /	/g'>> $1/carna/${SUBSET##*/}.carna.score
-    { time carna --write-structure --time-limit=300000 --noLP `echo $line | awk '{print $3,$4}'` ; } \
+    { time carna --write-structure --time-limit=300000 --noLP `echo $line | awk 'OFS"\t"{print $3,$4}'` ; } \
     	| tee -a $1/carna/${SUBSET##*/}.carna | grep Score | tail -n 1 | awk '{print $2}' \
     	>> $1/carna/${SUBSET##*/}.carna.score
 done

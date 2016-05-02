@@ -305,8 +305,8 @@ public class GenerateRFAMsubsets {
 					// Strip gaps form consensus structure
 					if (STRIP) {  // take it off
 						if ( Aligned.length() != SeqChars[ fam ][ 0 ].length() )
-							System.err.println("[ WARNING ] Sequence size inconsistency! " +RFAM_ID+" "
-												+Aligned.length()+" "+SeqChars[ fam ][ 0 ].length());
+							//System.err.println("[ WARNING ] Sequence size inconsistency! " +RFAM_ID+" "
+							//					+Aligned.length()+" "+SeqChars[ fam ][ 0 ].length());
 						String SeqStripped = new String() ;
 						String StructureStrip = new String() ; 
 						for ( int y = 0 ; y != Aligned.length() ; y ++ ) {

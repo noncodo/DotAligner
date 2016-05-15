@@ -212,3 +212,102 @@ title = {{Inferring noncoding \{RNA\} families and classes by means of genome-sc
 volume = {3},
 year = {2007}
 }
+@article{Muckstein12385998,
+	author = {Muckstein, U. and Hofacker, I.L. and Stadler, P.F.},
+	title = {Stochastic pairwise alignments.},
+	journal = {Bioinformatics},
+	volume = {18 Suppl 2},
+	year = {2002},
+	pages = {S153-60},
+	pmid = {12385998},
+	abstract = {MOTIVATION: The level of sequence conservation between related
+nucleic acids or proteins often varies considerably along the
+sequence. Both regions with high variability (mutational hot-spots)
+and regions of almost perfect sequence identity may occur in the
+same pair of molecules. The reliability of an alignment therefore
+strongly depends on the level of local sequence similarity. Especially
+in regions of high variability, many alignments of almost equal
+quality exist, and the optimal alignment is highly arbitrary.
+RESULTS: We discuss two approaches which deal with the inherent
+ambiguity of the alignment problem based on the computation of
+the partition function over all canonical pairwise alignments.
+The ensemble of possible alignments can be described by the probabilities
+P(ij) of a  match between position i in the first and position
+j in the second sequence. Alternatively, we introduce a probabilistic
+backtracking procedure that generates ensembles of suboptimal
+alignments with correct statistical weights. A comparison between
+structure based alignments and large samples of stochastic alignments
+shows that the ensemble contains correct alignments with significant
+probabilities even though the optimal alignment deviates significantly
+from the structural alignment. Ensembles of suboptimal alignments
+obtained by stochastic backtracking can be used as input to any
+bioinformatics method based on pairwise  alignment in order to
+gain reliability information not available from a single optimal
+alignment. AVAILABILITY: The software described in this contribution
+is available for downloading at \verb+http://www.tbi.univie.ac.at/~ulim/probA/+}
+}
+@article{Dalli16613908,
+	author = {Dalli, D. and Wilm, A. and Mainz, I. and Steger, G.},
+	title = {{STRAL}: progressive alignment of non-coding {RNA} using base pairing probability vectors in quadratic time.},
+	journal = {Bioinformatics},
+	volume = {22},
+	number = {13},
+	year = {2006},
+	month = {Jul},
+	pages = {1593-1599},
+	pmid = {16613908},
+	doi = {10.1093/bioinformatics/btl142},
+	abstract = {MOTIVATION: Alignment of RNA has a wide range of applications,
+for example in phylogeny inference, consensus structure prediction
+and homology searches. Yet aligning structural or non-coding RNAs
+(ncRNAs) correctly is notoriously difficult as these RNA sequences
+may evolve by compensatory mutations, which maintain base pairing
+but destroy sequence homology. Ideally, alignment programs  would
+take RNA structure into account. The Sankoff algorithm for the
+simultaneous solution of RNA structure prediction and RNA sequence
+alignment was proposed 20 years ago but suffers from its exponential
+complexity. A number of programs implement lightweight versions
+of the Sankoff algorithm by restricting its application to a limited
+type of structure and/or only pairwise alignment. Thus,  despite
+recent advances, the proper alignment of multiple structural RNA
+sequences remains a problem. RESULTS: Here we present StrAl, a
+heuristic method for alignment of ncRNA that reduces sequence-structure
+alignment to a two-dimensional problem similar to standard multiple
+sequence alignment. The scoring function takes into account sequence
+similarity as well as up- and downstream pairing probability.
+To test the robustness of the algorithm and the performance of
+the program, we scored alignments produced by StrAl against a
+large set of published reference alignments. The quality of alignments
+predicted  by StrAl is far better than that obtained by standard
+sequence alignment programs, especially when sequence homologies
+drop below approximately 65\%; nevertheless StrAl's runtime is
+comparable to that of ClustalW.}
+}
+@article{Klein14499004,
+	author = {Klein, R.J. and Eddy, S.R.},
+	title = {{RSEARCH}: finding homologs of single structured {RNA} sequences.},
+	journal = {BMC Bioinformatics},
+	volume = {4},
+	year = {2003},
+	month = {Sep},
+	pages = {44},
+	pmid = {14499004},
+	doi = {10.1186/1471-2105-4-44},
+	abstract = {BACKGROUND: For many RNA molecules, secondary structure rather
+than primary sequence is the evolutionarily conserved feature.
+No programs have yet been published that allow searching a sequence
+database for homologs of a single RNA molecule on the basis of
+secondary structure. RESULTS: We have developed a program, RSEARCH,
+that takes a single RNA sequence with its secondary structure
+and utilizes a local alignment algorithm to search a database
+for homologous RNAs. For this purpose, we have developed a series
+of base pair and single nucleotide substitution matrices for RNA
+sequences called RIBOSUM matrices. RSEARCH reports the statistical
+confidence for each hit as well as the structural alignment of
+the hit. We show several examples in which RSEARCH outperforms
+the primary sequence search programs BLAST and SSEARCH. The primary
+drawback of the program is that it is slow. The C code for RSEARCH
+is freely available from our lab's website. CONCLUSION: RSEARCH
+outperforms primary sequence programs in finding homologs of structured
+RNA sequences.}
+}

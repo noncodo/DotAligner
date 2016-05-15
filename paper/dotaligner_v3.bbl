@@ -28,6 +28,12 @@ Gardner, P.~P., Wilm, A., and Washietl, S. (2005).
   \{RNAs\}.}
 \newblock {\em Nucleic Acids Res}, 33(8):2433--2439.
 
+\bibitem[Gruber et~al., 2008]{gruber2008strategies}
+Gruber, A.~R., Bernhart, S.~H., Hofacker, I.~L., and Washietl, S. (2008).
+\newblock Strategies for measuring evolutionary conservation of rna secondary
+  structures.
+\newblock {\em BMC bioinformatics}, 9(1):122.
+
 \bibitem[Gupta et~al., 2010]{Gupta20393566}
 Gupta, R.~A., Shah, N., Wang, K.~C., Kim, J., Horlings, H.~M., Wong, D.~J.,
   Tsai, M.~C., Hung, T., Argani, P., Rinn, J.~L., Wang, Y., Brzoska, P., Kong,
@@ -69,6 +75,12 @@ McCaskill, J.~S. (1990).
 Muckstein, U., Hofacker, I., and Stadler, P. (2002).
 \newblock Stochastic pairwise alignments.
 \newblock {\em Bioinformatics}, 18 Suppl 2:S153--60.
+
+\bibitem[Nawrocki et~al., 2014]{nawrocki2014rfam}
+Nawrocki, E.~P., Burge, S.~W., Bateman, A., Daub, J., Eberhardt, R.~Y., Eddy,
+  S.~R., Floden, E.~W., Gardner, P.~P., Jones, T.~A., Tate, J., et~al. (2014).
+\newblock Rfam 12.0: updates to the rna families database.
+\newblock {\em Nucleic acids research}, page gku1063.
 
 \bibitem[Pal\`{u} et~al., 2010]{Palu2010}
 Pal\`{u}, A., M\"{o}hl, M., and Will, S. (2010).

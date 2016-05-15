@@ -4,45 +4,45 @@ The top-level auxiliary file: dotaligner_v3.aux
 The style file: apalike.bst
 Database file #1: dotaligner.bib
 Warning--empty publisher in Palu2010
-You've used 19 entries,
+You've used 21 entries,
             1935 wiz_defined-function locations,
-            611 strings with 7433 characters,
-and the built_in function-call counts, 9003 in all, are:
-= -- 855
-> -- 484
-< -- 5
-+ -- 173
-- -- 171
-* -- 850
-:= -- 1578
-add.period$ -- 58
-call.type$ -- 19
-change.case$ -- 181
-chr.to.int$ -- 19
-cite$ -- 20
-duplicate$ -- 286
-empty$ -- 567
-format.name$ -- 192
-if$ -- 1718
+            623 strings with 7939 characters,
+and the built_in function-call counts, 10160 in all, are:
+= -- 961
+> -- 565
+< -- 6
++ -- 203
+- -- 201
+* -- 951
+:= -- 1775
+add.period$ -- 64
+call.type$ -- 21
+change.case$ -- 205
+chr.to.int$ -- 21
+cite$ -- 22
+duplicate$ -- 329
+empty$ -- 623
+format.name$ -- 224
+if$ -- 1947
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 19
-newline$ -- 98
-num.names$ -- 59
-pop$ -- 146
+missing$ -- 21
+newline$ -- 108
+num.names$ -- 65
+pop$ -- 169
 preamble$ -- 1
-purify$ -- 180
+purify$ -- 204
 quote$ -- 0
-skip$ -- 214
+skip$ -- 255
 stack$ -- 0
-substring$ -- 635
-swap$ -- 35
-text.length$ -- 2
+substring$ -- 682
+swap$ -- 52
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 114
+type$ -- 126
 warning$ -- 1
-while$ -- 72
+while$ -- 78
 width$ -- 0
-write$ -- 250
+write$ -- 276
 (There was 1 warning)

@@ -357,12 +357,12 @@ random.
 
 \section{\uppercase{Results}}
 \subsection{Parameter optimization on pairwise alignments}
-The weight function of \dotaligner{} incorporates several parameters that were 
-optimized using  8,976 pairwise RNA structure alignments encompassing 36 RNA 
-structure families (7,859 sequences) from the  \bralibase{} 2.1 reference dataset 
-\cite{Wilm2006enhanced}. We determined the optimal default parameters for 
-\dotaligner{} by performing pairwise alignments on the unaligned native \bralibase{} 
-sequences using all combinations of the following parameters:
+The weight function of \dotaligner{} incorporates several parameters that first needed 
+to be optimized. We achieved this by comparing \dotaligner{} results to the pairwise 
+RNAstructure alignments from the \bralibase{} reference dataset \cite{Wilm2006enhanced}, 
+which encompasses 8,976 RNA structure alignments from 36 RNA structure families 
+(7,859 unique sequences). We tested all combinations of the following parameters:
+
 \begin{itemize}
 	\item $\kappa$ weight of sequence (string) similarity compared to structure 
 	(dot plot) similarity;
@@ -373,7 +373,7 @@ sequences using all combinations of the following parameters:
 	the similarity of unpaired/pairing probability.
 \end{itemize}
 
-\noindent We compared the pairwise alignment results to the reference alignments 
+\noindent The results were then contrasted to  the reference alignments 
 using two key metrics previously shown to be the most accurate at detecting 
 structural conservation \cite{gruber2008strategies}: 
  \begin{enumerate}
@@ -387,7 +387,7 @@ sequences. For pairwise alignments, the SCI is calculated as:
 \end{equation} 
 and 	
 \begin{equation}\label{dsci}
-	\Delta SCI = SCI_{Reference} - SCI_{DotAligner}
+	\Delta SCI =  SCI_{DotAligner} - SCI_{Reference}
 \end{equation} 
  \item  The topological edit distance between the experimental alignment consensus 
  and that from the reference using RNAdistance from the Vienna RNA package. 
@@ -399,11 +399,11 @@ and
 7,624,073 (94.4\%) produced a SCI score as good as the reference alignment, 
 including 79,511(1.0\%) where the SCI from \dotaligner{} alignments scored better. 
 Interestingly, the latter can be assigned to most of the RNA families represented 
-in \bralibase  2.1 (25 out of 36). \RED{This  suggests that there is slight room for 
-improvement in the representation of the structures in the reference alignments}. Furthermore, 
+in \bralibase   (25 out of 36). Furthermore, 
 many of the results encountered while optimizing \dotaligner{} parameters were 
 associated with greater SCI scores than the reference alignments (2,774, 733; 34.3\%), 
 but were ignored given a non-null edit distance with the reference. 
+\RED{This  suggests that there is some room for improvement in the representation of the structures in the reference alignments, \emph{which may have been automatically generated based on similarity to a covariance model}}. 
 Although some of the alignments produced may be closer to the biological reality 
 than the \bralibase{} representatives, which encompass many sequences automatically 
 added into RFAM given their similarity to covariance models, we dismissed this 
@@ -442,9 +442,11 @@ tRNA & \\
 \hline 
 \end{tabular} 
 
-Several different parameters gave the same results, where the alignments are identical or compatible with the reference alignments.
- because the reference sequences/alignments are fairly similar to each other in terms of size and structure. 
-
+We performed a rank-based selection of the globally optimal parameters for \dotaligner{}. 
+As several combinations of parameters gave optimal results, we selected those that were 
+consistently present in the top scoring alignments across as many families as possible by 
+ranking the alignments in function of their SCI score, ensuring they had a null edit distance 
+to the reference.  
 
 
 There are additional \dotaligner{} parameters that may contribute to alignment 
@@ -460,52 +462,27 @@ aforementioned variables. These parameters include:
 	\item The minimal unpaired/pairing probability $p_0$ ( default 0.0005).
 \end{itemize}
 
+\emph{QUECK's final parameter optimisation results here.}
 
-\GRAY{The ROC curve in Figure \ref{fig:roc} shows the lowest $\gamma$ as most
-sensitive (SN $=$ 0.61) and the highest $\gamma$ as most specific (SP
-$=$ 1.0) for correctly clustering the selected Rfam families. In the
-following we choose $\gamma=4$, whereas the optimal gap cost lies
-somewhere between 3 and 4.}
+\subsection{Benchmarking performance on homologous RNA families} 
 
-\begin{figure}[!h]
-  %\vspace{-0.2cm}
-  \centering
-  {\epsfig{ file = snornal140_roc.eps, width = 0.45\textwidth}}
-  \caption{\GRAY{Performance comparison of hierarchical cluster analysis: Degree of
-  agreement between the 10 tested Rfam families and the automated clustering
-  based on distance scores from \dotaligner{} with different gap penalties,
-  Needleman-Wunsch algorithm and \pmcomp{}.}}
-  \label{fig:roc}
-\end{figure}
+\noindent Our intended application of pairwise RNA structure alignments is 
+for the identification of homologous motifs from a pool of biological sequences. 
+We therefore tested the reliability of \dotaligner{} at clustering homologous RNA 
+families with well described structure topologies from the latest release of RFAM 
+\cite{nawrocki2014rfam}. To achieve this, we created a pipeline to stochastically 
+sample the entire RFAM seed alignments and extracted up to 200 sequences 
+within a specific size and range of pairwise sequence identity. N.B., the pairwise 
+sequence identity selection could only be performed within individual families, 
+which were each capped at 20 sequences. 
 
-%dotaligner gap 3
-%SP = 0.2719
-%SN = 0.9057
-%dotaligner gap 4
-%SP = 0.9846
-%SN = 0.6063
-%dotaligner gap 5
-%SP = 0.9978
-%SN = 0.5609
-%dotaligner gap 6
-%SP = 0.9997
-%SN = 0.4273
-%nwseq
-%SP = 0.8035
-%SN = 0.9735
-%%SP = 0.8353
-%%SN = 0.9833
-%pmcomp
-%SP = 0.7204
-%SN = 0.7414
+To assess how well \dotaligner{} reproduces known classifications of RNA structure, 
+we compared the normalized scores from all vs all pairwise comparisons on the 
+stochastically sampled RFAM input (similarity matrix) to a binary matrix representing
+the RFAM classifications (\textbf{FIGURE XXX}). 
+\RED{Something about the conclusions here. }
 
 
-\subsection{Benchmarking methodology} 
-
-\noindent The reliability of our pairwise structure alignment algorithm at
-clustering homologous RNA structures was tested on a curated database of RNA
-structure families (cf RFAM). This enables both qualitative and quantitative
-performance evaluation using a gold-standard reference. We compared
 \texttt{DotAligner} to other RNA structure alignment and clustering tools using
 the following framework: 
 
@@ -540,39 +517,9 @@ sequences of similar length because step 1 of \dotaligner{} performs global
 alignments.}
 
 
-\subsection{Benchmark data generation} 
+\subsection{Performance benchmarking} 
 
-\RED{Martins benchmark for different APSIs. Compare Rfam families with
-significant clusters generated by \pvclust.}
 
-Benchmarking was performed on both complete RNA structures (global alignment)
-and randomly selected subsequences (local alignment) for various RFAM families,
-as described below. \\
-
-xx RNA families were manually selected from the seed alignments of RFAM 11
-(REF). \textit{How should we limit the mean pairwise identity? All structures
-must be within a given range and perform several independent comparisons, i.e.
-one per SeqID range? Then compare the individual SeqID ranges to a sample of
-variable SeqIDs (without selection)?}\\
-
-We employed the BuildRfamBenchmark JAVA program from (Smith M et al. NAR 2013)
-to generate the sample alignments for the RFAM entries listed in TableXX. The
-tRNA sample includes special tRNAs, like ser-tRNA with a 5th hairpin to see how
-the latter gets clustered by the algorithms. \\
-
-%###########  TABLE XX  ############
-\begin{tabular}{|c|c|c|}
-\hline 
-\textbf{RFAM ID} & \textbf{RNA class} & \textbf{average length} \\ 
-\hline 
-â€¢ & 5s rRNA & â€¢ \\ 
-â€¢ & SRP & â€¢ \\ 
-â€¢ & tRNA & â€¢ \\ 
-â€¢ & HaCa snoRNA & â€¢ \\ 
-â€¢ & pre-miRNA & â€¢ \\ 
-\hline 
-\end{tabular} 
-%###################################
 
 
 \subsection{Complete RFAM sequences}

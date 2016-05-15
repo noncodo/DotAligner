@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.22)  10 MAR 2016 22:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.22)  2 MAY 2016 15:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -531,6 +531,16 @@ Underfull \hbox (badness 1546) in paragraph at lines 330--332
  []
 
 [3]
+Underfull \hbox (badness 1242) in paragraph at lines 360--365
+\OT1/ptm/m/n/10 We achieved this by com-par-ing \OT1/pcr/m/n/10 DotAligner \OT1
+/ptm/m/n/10 re-
+ []
+
+
+Underfull \hbox (badness 1681) in paragraph at lines 360--365
+\OT1/ptm/m/n/10 2006), which en-com-passes 8,976 RNA struc-ture
+ []
+
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 367.
 
@@ -547,167 +557,48 @@ L/ptmcm/m/it/10 ^^R$\OT1/ptm/m/n/10 , of
  []
 
 
-LaTeX Warning: Citation `gruber2008strategies' on page 4 undefined on input lin
-e 378.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4]
-Package epstopdf Info: Source file: <snornal140_roc.eps>
-(epstopdf)                    date: 2016-03-09 16:40:18
-(epstopdf)                    size: 16162 bytes
-(epstopdf)             Output file: <snornal140_roc-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-03-09 16:40:18
-(epstopdf)                    size: 7476 bytes
-(epstopdf)             Command: <repstopdf --outfile=snornal140_roc-eps-convert
-ed-to.pdf snornal140_roc.eps>
-(epstopdf)             \includegraphics on input line 473.
-Package epstopdf Info: Output file is already uptodate.
+Underfull \hbox (badness 1009) in paragraph at lines 465--466
+[]\OT1/ptm/m/it/10 QUECK's fi-nal pa-ram-e-ter op-ti-mi-sa-tion re-sults
+ []
 
-<snornal140_roc-eps-converted-to.pdf, id=24, 406.51875pt x 407.5225pt>
-File: snornal140_roc-eps-converted-to.pdf Graphic file (type pdf)
 
-<use snornal140_roc-eps-converted-to.pdf>
-Package pdftex.def Info: snornal140_roc-eps-converted-to.pdf used on input line
- 473.
-(pdftex.def)             Requested size: 202.31464pt x 202.80934pt.
+Underfull \hbox (badness 2837) in paragraph at lines 479--484
+[]\OT1/ptm/m/n/10 To as-sess how well \OT1/pcr/m/n/10 DotAligner \OT1/ptm/m/n/1
+0 re-pro-duces
+ []
 
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 513.
+(amsmath)                 on input line 490.
 
 
-Underfull \hbox (badness 3323) in paragraph at lines 514--515
+Underfull \hbox (badness 3323) in paragraph at lines 491--492
 \OT1/ptm/m/n/10 tures and sig-nif-i-cance test-ing with \OT1/pcr/m/n/10 pvclust
 
  []
 
 
-Underfull \hbox (badness 1348) in paragraph at lines 514--515
+Underfull \hbox (badness 1348) in paragraph at lines 491--492
 \OT1/ptm/m/n/10 (Suzuki R and Shi-modaira H. Bioin-for-mat-ics
  []
 
-[5 <./snornal140_roc-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 540--541
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 517--518
 \OT1/ptm/m/it/10 SNORA14\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 SNORA15\OT1/ptm/m/n/
 10 , \OT1/ptm/m/it/10 SNORA16\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 SNORA17\OT1/ptm
 /m/n/10 ,
  []
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 548--551
-\OT1/ptm/m/n/10 RNA struc-tures (global align-ment) and ran-domly
- []
+LaTeX Warning: Reference `fig:roc' on page 6 undefined on input line 566.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 548--551
-
- []
-
-
-Underfull \hbox (badness 1158) in paragraph at lines 552--557
-\OT1/ptm/m/it/10 Then com-pare the in-di-vid-ual Se-qID ranges to a
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 552--557
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 558--562
-
- []
-
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no ¬ in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ¢ in font ptmr7t!
-
-Overfull \hbox (1.5708pt too wide) in paragraph at lines 564--576
-[][] 
- []
-
-
-Underfull \vbox (badness 1308) has occurred while \output is active []
-
-
-Underfull \hbox (badness 4765) in paragraph at lines 619--620
+Underfull \hbox (badness 4765) in paragraph at lines 566--567
 \OT1/ptm/m/n/10 ments (in-house im-ple-men-ta-tion of Needleman-
- []
-
-
-Underfull \hbox (badness 1127) in paragraph at lines 619--620
-\OT1/ptm/m/n/10 and \OT1/pcr/m/n/10 LocaRNA[]\OT1/ptm/m/n/10 . Fig-ure 1[] show
-s that the se-quence
  []
 
 Package epstopdf Info: Source file: <snornal140_dotaligner_g4_bootstrap1000.eps
@@ -720,85 +611,90 @@ Package epstopdf Info: Source file: <snornal140_dotaligner_g4_bootstrap1000.eps
 (epstopdf)                    size: 23664 bytes
 (epstopdf)             Command: <repstopdf --outfile=snornal140_dotaligner_g4_b
 ootstrap1000-eps-converted-to.pdf snornal140_dotaligner_g4_bootstrap1000.eps>
-(epstopdf)             \includegraphics on input line 623.
+(epstopdf)             \includegraphics on input line 570.
 Package epstopdf Info: Output file is already uptodate.
 
-<snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf, id=38, 2945.0025p
+<snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf, id=27, 2945.0025p
 t x 577.15625pt>
 File: snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf Graphic file 
 (type pdf)
 
 <use snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>
 Package pdftex.def Info: snornal140_dotaligner_g4_bootstrap1000-eps-converted-t
-o.pdf used on input line 623.
+o.pdf used on input line 570.
 (pdftex.def)             Requested size: 449.59116pt x 88.10205pt.
 
-Underfull \vbox (badness 4673) has occurred while \output is active []
-
- [6]
-Underfull \hbox (badness 1975) in paragraph at lines 654--655
+Underfull \hbox (badness 1975) in paragraph at lines 601--602
 []\OT1/ptm/m/n/10 Generate (dis)similarity ma-trix from pair-wise
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 692--693
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 639--640
 []\OT1/ptm/m/n/10 Try op-tion \OT1/pcr/m/n/10 --pw-aligner
  []
 
 
-Underfull \hbox (badness 1152) in paragraph at lines 692--693
+Underfull \hbox (badness 1152) in paragraph at lines 639--640
 \OT1/pcr/m/n/10 path/to/DotAligner \OT1/ptm/m/n/10 and see if it will give
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 695--697
+Underfull \hbox (badness 1681) in paragraph at lines 642--644
 []\OT1/ptm/m/n/10 Will this cause (m)locarna to use the en-tire
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 695--697
+Underfull \hbox (badness 10000) in paragraph at lines 642--644
 \OT1/ptm/m/n/10 the fol-low-ing pa-ram-e-ters \OT1/pcr/m/n/10 --probabilistic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 695--697
+Underfull \hbox (badness 10000) in paragraph at lines 642--644
 \OT1/pcr/m/n/10 --consistency-transformation
  []
 
-[7 <./snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>]
-(./dotaligner_v3.bbl
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./snornal140_dotaligner_g4_bootstrap1000-eps-converted-to.pdf>] (./dotalig
+ner_v3.bbl
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
 (Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 11.
 
-Underfull \hbox (badness 3407) in paragraph at lines 81--85
+[8]
+Underfull \hbox (badness 3407) in paragraph at lines 93--97
 []\OT1/ptm/m/n/9 Sankoff, D. (1985).  Si-mul-ta-ne-ous so-lu-tion of the
  []
 
-[8]) [9
+) [9
 
-] (./dotaligner_v3.aux) ) 
+] (./dotaligner_v3.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4571 strings out of 493089
- 66691 string characters out of 6134841
- 137573 words of memory out of 5000000
- 7916 multiletter control sequences out of 15000+600000
+ 4567 strings out of 493089
+ 66532 string characters out of 6134841
+ 138613 words of memory out of 5000000
+ 7913 multiletter control sequences out of 15000+600000
  67347 words of font info for 144 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,9n,38p,262b,316s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/ba
-se/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on dotaligner_v3.pdf (9 pages, 167552 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on dotaligner_v3.pdf (9 pages, 163331 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 77 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

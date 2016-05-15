@@ -11,9 +11,11 @@
 # CLEANUP AND PREPARE MATRIX
 if [[ ! -d $1/$2 ]]; then echo "Directory "`pwd`"/${1}/${2}"; fi
 cat $1/$2/*.$2.score > $1/$2_scores.txt
-echo "Would now run: rm -f $1/$2/*.carna.score"
+echo "Would now run: rm -f $1/$2/*.$2.score"
 SCORE_FILE=$1/$2_scores.txt
 MAXMIN=$(  awk 'BEGIN{min = 10000 ; max = -100000} { if ( $5 > max) {max = $5} else if ( $5 < min ) min = $5 } END {print max" "min}'  ${SCORE_FILE})
 MAX=${MAXMIN% *}
 MIN=${MAXMIN#* }
-awk -v min=$MIN -v max=$MAX 'OFS="\t"{ print $1,$2,$3,$4,($5-min)/(max-min) }' $SCORE_FILE > $1/$2_scores.matrix
+awk -v min=$MIN -v max=$MAX 'OFS="\t"{ if ( $5 == "-0")  print $1,$2,$3,$4,"0" ; else print $1,$2,$3,$4,($5-min)/(max-min) }' $SCORE_FILE > $1/$2_scores.matrix
+cat $1/logs/$2Log.* > $1/logs/$2_tasks.$(date +"%d%m%y-%H%M").log
+rm $1/logs/$2Log.*

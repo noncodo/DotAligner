@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+##################################################################################
+#####
+#####		DotAligner launcher for SGE queue management
+#####
+################################# SGE submission options  
+. /etc/profile.d/modules.sh
+TIMEFORMAT="%R"
+
+echo -ne "[DEBUG]\t"$JOB_ID"\t"${SGE_TASK_ID}"\t"${HOSTNAME}"\t"`date`"\t" > low_pi/logs/bench_low.${SGE_TASK_ID}
+DABIN=$( which DotAligner ) 
+CMD=$( sed ${SGE_TASK_ID}'q;d' low_pi/bench/cmds.list ) 
+OUT=$( sed ${SGE_TASK_ID}'q;d' low_pi/bench/out.list ) 
+
+echo -e "CMD: "$CMD
+
+# remove files form previous runs (allows re-launching individual tasks)
+if [[ -e low_pi/bench/${OUT}.dotaligner ||\
+	  -e low_pi/bench/${OUT}.dotaligner.score ||\
+	  -e low_pi/bench/${OUT}.dotaligner.time ]]; then rm low_pi/bench/${OUT}.dotaligner* ; fi
+
+while read line ; do
+ 	echo ${line} | awk 'OFS="\t"{ printf $1"\t"$2"\t"}' >> low_pi/bench/${OUT}.dotaligner.score
+ 	F1=$( echo ${line} | awk 'OFS="\t"{ print $3}' ) 
+ 	F2=$( echo ${line} | awk 'OFS="\t"{ print $4}' ) 
+ 	
+    ( time ( ${CMD} -d ${F1//ps/pp} -d ${F2//ps/pp} ; echo ) |\
+    	tee -a low_pi/bench/${OUT}.dotaligner |\
+    	awk '{ print $1,$2,$5}' >> low_pi/bench/${OUT}.dotaligner.score ) 2>> low_pi/bench/${OUT}.dotaligner.time
+   
+done < low_pi/pairwise_list.txt
+
+echo -e "[DEBUG] Completed job "$JOB_ID":"${SGE_TASK_ID}" "`date` >> low_pi/logs/bench_low.${SGE_TASK_ID}
+echo -e "[DEBUG] "$(qstat -j ${JOB_ID} | grep usage | grep ${SGE_TASK_ID}: ) >> low_pi/logs/bench_low.${SGE_TASK_ID}

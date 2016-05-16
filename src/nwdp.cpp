@@ -2173,7 +2173,8 @@ void decode_alig_da(aligm ai)
 	i = la/60;
 	k=0;
 
-	for(j=0; j <= i; j++)
+	/*
+    for(j=0; j <= i; j++)
     {
 		if(j < i)
 		{
@@ -2192,6 +2193,11 @@ void decode_alig_da(aligm ai)
 			printf("%s\n", &a.s1.seq[k]);
 		}
     }
+    */
+    printf("\t%s", &a.s0.seq[k]);
+    printf("\t%s", &ai.a[k]);
+    printf("\t%s", &a.s1.seq[k]);
+
 
 	free(buf0);
 	free(buf1);

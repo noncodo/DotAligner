@@ -293,11 +293,7 @@ int main( int argc, char ** argv )
         /* STEP 3: return optimal dotplot alignment */
         /********************************************/
 
-        cout << "Best dotplot alignment:" << endl;
-        printf("seq_score = %.4f\n", maxa.score);
-        printf("probability = %.2e\n", maxa.prob);
-        printf("combined_score = %.8f\n", maxsim);
-        printf("length = %i\n", (int) strlen(maxa.a));
+        printf("%s\t%s\t%.4f\t%.2e\t%.8f\t%i", filename1.c_str(), filename2.c_str(), maxa.score,  maxa.prob, maxsim, (int) strlen(maxa.a) ); 
         decode_alig_da(maxa);
         free_aligm(maxa);
 

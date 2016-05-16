@@ -1,0 +1,36 @@
+#!/bin/bash
+##PBS -P sc6
+#PBS -q normal 
+#PBS -l walltime=60:00:00,mem=1700MB 
+#PBS -l wd
+#PBS -V 
+#PBS -N bench_low
+##PBS -J 1-10
+
+TIMEFORMAT="%R"
+
+echo -ne "[DEBUG]\t"$PBS_JOBID"\t"${PBS_ARRAY_INDEX}"\t"${HOSTNAME}"\t"`date`"\t" > low_pi/logs/bench_low.${PBS_ARRAY_INDEX}
+DABIN=$( which DotAligner ) 
+CMD=$( sed ${PBS_ARRAY_INDEX}'q;d' low_pi/bench/cmds.list ) 
+OUT=$( sed ${PBS_ARRAY_INDEX}'q;d' low_pi/bench/out.list ) 
+
+echo -e "CMD: "$CMD
+
+# remove files form previous runs (allows re-launching individual tasks)
+if [[ -e low_pi/bench/${OUT}.dotaligner ||\
+	  -e low_pi/bench/${OUT}.dotaligner.score ||\
+	  -e low_pi/bench/${OUT}.dotaligner.time ]]; then rm low_pi/bench/${OUT}.dotaligner* ; fi
+
+while read line ; do
+ 	echo ${line} | awk 'OFS="\t"{ printf $1"\t"$2"\t"}' >> low_pi/bench/${OUT}.dotaligner.score
+ 	F1=$( echo ${line} | awk 'OFS="\t"{ print $3}' ) 
+ 	F2=$( echo ${line} | awk 'OFS="\t"{ print $4}' ) 
+ 	
+    ( time ( ${CMD} -d ${F1//ps/pp} -d ${F2//ps/pp} ; echo ) |\
+    	tee -a low_pi/bench/${OUT}.dotaligner |\
+    	awk '{ print $1,$2,$5}' >> low_pi/bench/${OUT}.dotaligner.score ) 2>> low_pi/bench/${OUT}.dotaligner.time
+   
+done < low_pi/pairwise_list.txt
+
+echo -e "[DEBUG] Completed job "$PBS_JOBID":"${PBS_ARRAY_INDEX}" "`date` >> low_pi/logs/bench_low.${PBS_ARRAY_INDEX}
+echo -e "[DEBUG] "$(qstat ${PBS_JOBID} | grep usage | grep ${PBS_ARRAY_INDEX}: ) >> low_pi/logs/bench_low.${PBS_ARRAY_INDEX}

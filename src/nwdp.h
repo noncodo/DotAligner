@@ -42,7 +42,7 @@ using namespace std;
 
 /* arguments */
 extern double kappa;
-extern double tau;
+extern double theta;
 extern double zeta;
 extern double open;
 extern double ext;
@@ -200,6 +200,7 @@ extern double simdp( string seq_1, vector<double> & probDbl_1, int len_1, string
 extern double gappenalty( char * aln_code );
 extern int convert(char * aliggAlignment, int * idx_1_aln, int * idx_2_aln);
 extern int count_endgaps(int * idx_1_aln, int len_1, int * idx_2_aln, int len_2, int len_match);
+extern double seqidentity(char * aln_code );
 
 extern void printalign(string & seq_1, int * idx_1_aln, string & seq_2, int * idx_2_aln, int len_aln );
 extern void freeMatrix(double ** matrix, int leny);
@@ -228,5 +229,6 @@ extern double calc_score_da( char *tr, vector<double> & probSgl_long, vector<dou
 extern void free_partition_f_da(real **m, sequ *s);
 extern void free_align_da(aligm alig);
 extern void decode_alig_da(aligm ai);
+
 
 #endif /* NWDP_H_ */

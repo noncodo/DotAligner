@@ -26,7 +26,7 @@ using namespace std;
 double kappa = 0.5;
 double open = 0.3;
 double ext  = 0.1;
-double tau = 0.5;
+double theta = 0.5;
 double zeta = 0.;
 int mutation_rates_flag = 0;
 int free_endgaps_flag = 0;
@@ -68,7 +68,7 @@ int main( int argc, char ** argv )
     			{"precision", required_argument, 0, 'p'},       // number of digits considered of base pair reliabilities
     			{"pnull", required_argument, 0, 'n'},			// minimal probability
     			{"subopt", required_argument, 0, 's'},			// number of suboptimal sequence/unpaired probability alignments examined
-    			{"tau", required_argument, 0, 't'},				// weight of sequence similarity in sequence compared to unpaired probability similarity
+    			{"theta", required_argument, 0, 't'},			// weight of sequence similarity in sequence compared to unpaired probability similarity
     			{"zeta", required_argument, 0, 'z'},            // weight of unpaired probability similarity compared to paired probabilities to upstream nucleotides
     			{"temp", required_argument, 0, 'T'},            // measure of our interest in suboptimal alignments; analogous to the thermodynamic temperature
     			{"mutation-rates", no_argument, &mutation_rates_flag, 1},  // whether probabilities are multiplied with mutation rates
@@ -107,7 +107,7 @@ int main( int argc, char ** argv )
     			case 'p': precision = atoi(optarg); break;
     			case 'n': pnull = atof(optarg); break;
     			case 's': subopt = atoi(optarg); break;
-    			case 't': tau = atof(optarg); break;
+    			case 't': theta = atof(optarg); break;
     			case 'z': zeta = atof(optarg); break;
     			case 'T': temp = atof(optarg); BETA = 1.0/temp; break;
     			default:  abort();
@@ -246,11 +246,16 @@ int main( int argc, char ** argv )
         else
         	sta = stoch_backtr_da( aligg, probSgl_2, probDblUp_2, probSgl_1, probDblUp_1 );
         maxa.prob = sta.prob;
-		if( verbose_flag )
+
+        double si;
+        if( verbose_flag )
 		{
-	        //cout << "Optimal sequence alignment:" << endl;
-		    printf(" seq_score\tprobability\tnorm_seq_score\tnorm_str_score\tcombined_score\tlength\talignment\n");
-			printf(" %.4f\t\t%.2e\t%.4f\t\t%.4f\t\t%.8f\t%i\t%s\n", sta.score, sta.prob, score_seq, score_dp, tempsim, len_subaln, sta.a);
+    		/* calculate sequence identity of optimal sequence alignment */
+    		si = seqidentity( sta.a );
+
+    		//cout << "Optimal sequence alignment:" << endl;
+		    printf(" seq_score\tprobability\tnorm_seq_score\tnorm_str_score\tcombined_score\tlength\tsequence_identity\talignment\n");
+			printf(" %.4f\t\t%.2e\t%.4f\t\t%.4f\t\t%.8f\t%i\t%2.2f\t%s\n", sta.score, sta.prob, score_seq, score_dp, tempsim, len_subaln, si, sta.a);
 		}
 
         while( subopt )
@@ -274,8 +279,11 @@ int main( int argc, char ** argv )
     		tempsim = kappa * score_seq + (1 - kappa) * score_dp;
     		if( verbose_flag )
     		{
+        		/* calculate sequence identity of optimal sequence alignment */
+        		si = seqidentity( sta.a );
+
     	        //cout << "Sub-optimal sequence alignments:" << endl;
-    			printf(" %.4f\t\t%.2e\t%.4f\t\t%.4f\t\t%.8f\t%i\t%s\n", sta.score, sta.prob, score_seq, score_dp, tempsim, len_subaln, sta.a);
+    			printf(" %.4f\t\t%.2e\t%.4f\t\t%.4f\t\t%.8f\t%i\t%2.2f\t%s\n", sta.score, sta.prob, score_seq, score_dp, tempsim, len_subaln, si, sta.a);
     		}
 
     		if( tempsim > maxsim )
@@ -293,12 +301,19 @@ int main( int argc, char ** argv )
         /* STEP 3: return optimal dotplot alignment */
         /********************************************/
 
-        cout << "Best dotplot alignment:" << endl;
-        printf("seq_score = %.4f\n", maxa.score);
-        printf("probability = %.2e\n", maxa.prob);
-        printf("combined_score = %.8f\n", maxsim);
-        printf("length = %i\n", (int) strlen(maxa.a));
-        decode_alig_da(maxa);
+		if( verbose_flag )
+		{
+			cout << "Best dotplot alignment:" << endl;
+			printf("seq_score = %.4f\n", maxa.score);
+			printf("probability = %.2e\n", maxa.prob);
+			printf("combined_score = %.8f\n", maxsim);
+			printf("length = %i\n", (int) strlen(maxa.a));
+		}
+		else
+		{
+			printf("%s\t%s\t%.4f\t%.2e\t%.8f\t%i\t%4.2f", filename1.c_str(), filename2.c_str(), maxa.score,  maxa.prob, maxsim, (int) strlen(maxa.a), seqidentity(maxa.a));
+		}
+		decode_alig_da(maxa);
         free_aligm(maxa);
 
 

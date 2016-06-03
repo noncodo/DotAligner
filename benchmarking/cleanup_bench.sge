@@ -1,0 +1,19 @@
+#!/bin/bash
+################################# SGE submission options
+#$ -cwd                       	# Change to current working directory
+#$ -V                         	# Export environment variables into script
+#$ -S /bin/bash					# Enforce bash (don't touch!!!!)
+
+. /etc/profile.d/modules.sh
+
+###################################################################
+
+for file in $1/$2/*.score; do 
+	MAXMIN=$(  awk 'BEGIN{min = 10000 ; max = -100000} { if ( $5 > max) {max = $5} else if ( $5 < min ) min = $5 } END {print max" "min}'  ${file})
+	MAX=${MAXMIN% *}
+	MIN=${MAXMIN#* }
+	awk -v min=$MIN -v max=$MAX 'OFS="\t"{ if ( $5 == "-0")  print $1,$2,"NA" ; else print $1,$2,($5-min)/(max-min) }' $file > ${file}.short
+	cat $1/logs/bench_${1%_*}.* >> $1/logs/bench_${1%_*}_$(date +"%d%m%y-%H%M").log
+	#rm $1/logs/bench_${1%_*}.*
+done
+

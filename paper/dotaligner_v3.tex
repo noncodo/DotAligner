@@ -354,47 +354,126 @@ probabilities. Unpaired probabilities are handled in a similar way by
 where $p_0$ is the expected probability for an unpaired base to occur at
 random.
 
+\section{\uppercase{Materials and Methods}}
 
-\section{\uppercase{Results}}
-\subsection{Parameter optimization on pairwise alignments}
-The weight function of \dotaligner{} incorporates several parameters that first needed 
-to be optimized. We achieved this by comparing \dotaligner{} results to the pairwise 
-RNAstructure alignments from the \bralibase{} reference dataset \cite{Wilm2006enhanced}, 
-which encompasses 8,976 RNA structure alignments from 36 RNA structure families 
-(7,859 unique sequences). We tested all combinations of the following parameters:
+\noindent All data of modest size, scripts, and pipelines described herein are available in the associated 
+GitHub repository (\textbf{REFERENCE TO GITHUB REPO}).
+
+\subsection{\textit{Parameter optimization using pairwise alignments}}
+%%%%%%%%%%%%%%%%%
+%    Queck's scripts in a github folder
+%%%%%%%%%%%%%%%%%
+Initial parameter optimization was performed on  8,976 pairwise RNA structure 
+alignments  (7,859 unique sequences from 36 RNA structure families) curated in the 
+\bralibase{} reference dataset \cite{Wilm2006enhanced}. Postscript files representing 
+the base-pairing probabilities were generated using the implementation of McCaskill's
+partition function algorithm in \texttt{RNAfold} from the Vienna RNA package (version 2.1.3) on the raw, unaligned 
+\bralibase{} sequences. The postscript files were then converted to pairwise probability matrices
+using an \textit{ad hoc} java script.  \\
+
+The following combination of parameters were tested on the reference sequences (\textit{equation 
+reference})\{\textit{min value; max value; increment}\}:
 
 \begin{itemize}
-	\item $\kappa$ weight of sequence (string) similarity compared to structure 
-	(dot plot) similarity;
-	\item $g_o$ and $g_{ext}$ are the gap-open and gap-extension penalties, 
-	respectively;
-	\item When using similarity matrices $M_{seq}$ and $M_{paired}$ (default), 
-	the relative weight, $\theta$, of sequence/basepair similarity \textit{versus} 
-	the similarity of unpaired/pairing probability.
+	\item $\kappa$ weight of sequence similarity versus structural similarity 
+		\eqref{eq9}\{0; 1;  0.1\};
+	\item $\theta$ relative weight  of sequence/basepair similarity \textit{versus} 
+		the similarity of unpaired/pairing probability \eqref{sigmam}\eqref{eq8}\{0.2; 1; 0.2\};
+	\item $g_o$ and $g_{ext}$ are the gap-open and gap-extension penalties, respectively  
+		\eqref{eq6}\{0; 1;  0.1\}.
 \end{itemize}
 
-\noindent The results were then contrasted to  the reference alignments 
+\noindent The output was then contrasted to  the reference alignments 
 using two key metrics previously shown to be the most accurate at detecting 
 structural conservation \cite{gruber2008strategies}: 
+
  \begin{enumerate}
-\item  The Structural Conservation Index (SCI), a robust thermodynamic measure 
-of structural compatibility where the Minimum Free Energy (MFE) of the alignment 
+\item  The difference in Structural Conservation Index (SCI) between \dotaligner{} alignments and
+the \bralibase{} reference alignment. The SCI is  a robust thermodynamic measure 
+of structural compatibility, where the Minimum Free Energy (MFE) of the alignment 
 consensus---calculated with RNAalifold from the Vienna RNA package 
-\cite{lorenz2011viennarna}---is normalized by the average MFE of the individual 
-sequences. For pairwise alignments, the SCI is calculated as:
+\cite{lorenz2011viennarna}---is normalized by the average MFE of individual 
+sequences. For pairwise alignments, the $\Delta $SCI is calculated as:
+\begin{equation}\label{dsci}
+	\Delta SCI =  SCI_{DotAligner} - SCI_{BRAliBase}
+\end{equation} 
+where
 \begin{equation}\label{sci}
 	SCI =  MFE_{Cons} /  \left( \frac{ MFE_1 + MFE_2 }{ 2} \right)   
 \end{equation} 
-and 	
-\begin{equation}\label{dsci}
-	\Delta SCI =  SCI_{DotAligner} - SCI_{Reference}
-\end{equation} 
- \item  The topological edit distance between the experimental alignment consensus 
- and that from the reference using RNAdistance from the Vienna RNA package. 
- \end{enumerate}
 
-\noindent The resulting 26,398,295 pairwise alignments were filtered to retain
- only those with an RNAdistance score equal to 0 (8,078,665), indicating that the 
+\item  The topological edit distance between the experimental alignment consensus 
+secondary structure  and that from the reference using \texttt{RNAdistance} from the Vienna RNA package. 
+\RED{Quek, which version of these software did you employ? Also, was RNAalifold used in (1.) or just RNAz ? }
+ \end{enumerate}
+ 
+
+\subsection{\textit{Stochastic sampling of structured RNA families from RFAM}}
+%%%%%%%%%%%%%%%%%
+%    Martin's scripts in a github folder
+%%%%%%%%%%%%%%%%%
+The seed alignments from RFAM 12.0 were downloaded, split into families, and converted from Stockholm
+to Fasta file formats. Only RFAM entries with published tertiary or crystal structures, without nested base-pairs 
+(pseudoknots), and with at least 10 representatives were retained for subsequent sampling. A modified version 
+of the RFAM sampling software described in  \cite{smith2013widespread} was used to extract representative 
+sequences from the seed alignments with restrictions on their sequence composition and length. The program
+(\texttt{GenerateRFAMsubsets.java}) incrementally samples each family (starting from RF00001) like so:
+
+\begin{enumerate}
+\item Random selection of an `anchor'  sequence within the RFAM entry that satisfies the size constraints. 
+If no sequence is found after 250 random draws, the next RFAM entry is sampled;
+
+\item  Each sequence of compatible size in the current RFAM entry is compared to the `anchor'. 
+If the pairwise sequence identity of both sequences is within the minimum and maximum constraints, 
+the sequence is retained. Pairwise sequence identity is calculated as the number of non-indel matches 
+divided by the length of the smaller sequence; 
+
+\item Step \texttt{2} is repeated. However, each  additional sequence must satisfy the min and max sequence 
+identity constraints  against all previously retained sequences, ensuring that the overall sequence identity of the sampled 
+RFAM entry lies within the constrained range; 
+
+\item Once a maximal amount of sequences are selected (default 20), or if no match to the `anchor' is found, 
+the next RFAM entry is sampled. 
+
+\item The sampling continues until all RFAM entries have been surveyed or a user-defined ceiling is reached. 
+
+\end{enumerate}
+
+
+\subsection{\textit{ Performance benchmarking using binary classification matrices}}
+The RFAM accessions from sequences sampled using the above-mentioned strategy were used to populate a binary matrix 
+serving as a reference classifier. In other words, if any 2 sequences being compared belong to the same structure family,
+the corresponding position in the matrix is instantiated with ``1", or ``0" otherwise. Another matrix is then populated with the 
+results of a given pairwise alignment/comparison  algorithm (using the same sequences) that have been normalized between 0 and 1 
+(min and max score, respectively). The empirical matrix is evaluated against the binary classification matrix via Receiver 
+Operating Characteristic (ROC) and the Area Under the Curve (AUC) of the ROC using the pROC R package \cite{robin2011proc}. \\
+
+This approach was used for both refined parameter optimization of \dotaligner and for comparative performance benchmarking of 
+pairwise RNA structure/sequence alignment algorithms (on separate datasets generated via the stochastic sampling).  The algorithms 
+used for performance benchmarking include: 
+\begin{itemize}
+\item \locarna{} 
+
+\end{itemize}
+
+\subsection{\textit{ Cluster analysis and extraction }}
+
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN) algorithm \cite{ester1996density} was used via the DBSCAN  R package (https://github.com/mhahsler/dbscan). 
+
+
+\subsection{\textit{ Processing of eCLIP data }}
+The 53 narrowPeak bed files (available in April 2016) asociated with the human eCLIP datasets described in 
+\cite{van2016robust} were downloaded from the ENCODE data hub (https://www.encodeproject.org/). 
+
+
+
+\section{\uppercase{Results}}
+\subsection*{\textit{Fast and accurate identification of known RNA families }}
+The \dotaligner{} algorithm implements several theoretical parameters that first need to 
+be tuned before applying this tool to biological sequence analysis. All combinations of 
+core parameters were tested on the 8,976 pairwise RNA structure alignments  curated in the 
+\bralibase{} reference dataset \cite{Wilm2006enhanced}.  The resulting 26,398,295 pairwise alignments were filtered to retain only those \textbf{with an 
+RNAdistance score equal to 0 }(8,078,665), indicating that the 
  alignment generated the exact structure reported in the reference.  Of these, 
 7,624,073 (94.4\%) produced a SCI score as good as the reference alignment, 
 including 79,511(1.0\%) where the SCI from \dotaligner{} alignments scored better. 

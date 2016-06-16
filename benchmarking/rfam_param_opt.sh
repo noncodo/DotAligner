@@ -6,25 +6,31 @@ GRID_ACCOUNT="RNABiologyandPlasticity"
 # load modules (for or local server)
 module load gi/ViennaRNA/2.1.3 marsmi/dotaligner/0.3
 
-# >&2 echo "Generating list of pairwise comparions...." 
-# k=0
-# Files=$( ls ${1}/pp/*.pp | tee ${1}/file_list.txt | wc -l )
-# for (( i=1 ; i <= ${Files} ; i++ )); do 
-#   for (( j = $i ; j <= ${Files}; j++ )); do 
-#       F1=$( sed $i'q;d' ${1}/file_list.txt )
-#       F2=$( sed $j'q;d' ${1}/file_list.txt )
-#       echo -e $i"\t"$j"\t"`pwd`/${F1//pp/ps}"\t"`pwd`/${F2//pp/ps} 
-#       ((k+=1))   
-#       if [[ $(( $k % 50 )) -eq 0 ]]; then 
-#         >&2 printf "\r%.1f%s" $( echo $k $Files | \
-#           awk '{printf 100*$1/($2*($2+1)/2)}' ) "% of alignments completed"
-#       fi
-#   done
-# done > $1/pairwise_list.txt
-# >&2 echo  
+if [[ -e $1/pairwise_list.txt ]]; then
+  echo "Detected existing list of pairwise comparions."
+  echo -n "Regenerate this file, can take minutes? (y/n) "
+  read proceed
+fi
+if [[ $proceed != 'n' ]]; then
+  >&2 echo "Generating list of pairwise comparions...."
+  k=0
+  Files=$( ls ${1}/pp/*.pp | tee ${1}/file_list.txt | wc -l )
+  for (( i=1 ; i <= ${Files} ; i++ )); do
+    for (( j = $i ; j <= ${Files}; j++ )); do
+        F1=$( sed $i'q;d' ${1}/file_list.txt )
+        F2=$( sed $j'q;d' ${1}/file_list.txt )
+        echo -e $i"\t"$j"\t"`pwd`/${F1//pp/ps}"\t"`pwd`/${F2//pp/ps}
+        ((k+=1))
+        if [[ $(( $k % 50 )) -eq 0 ]]; then
+          >&2 printf "\r%.1f%s" $( echo $k $Files | \
+            awk '{printf 100*$1/($2*($2+1)/2)}' ) "% of alignments completed"
+        fi
+    done
+  done > $1/pairwise_list.txt
+  >&2 echo
+fi
 
-
-# this is needed for R code
+# this is needed for subsequent R code
 #cut -d "/" -f 3 $1/file_list.txt | cut -d "_" -f 1-2 > $1/structure_ids.txt
 if [[ ! -d $1/logs ]]; then mkdir $1/logs ; fi
 if [[ ! -d $1/bench ]]; then mkdir $1/bench ; else rm $1/bench/* ; fi
@@ -92,7 +98,7 @@ CMD="qsub -cwd -V -S /bin/bash \
 	-N bench_${1} \
 	-l mem_requested=1.5G,h_vmem=2G \
 	-j y -b y \
-	./da_bench_${1}.sge" 
+	./da_bench_any.sge ${1}" 
 #	-t 1:`wc -l ${1}/bench/cmds.list`
 (echo "[COMMAND]"; echo $CMD) && DOTALNR=$( $CMD ) 
 echo $DOTALNR

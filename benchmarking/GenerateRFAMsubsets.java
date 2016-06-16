@@ -232,36 +232,66 @@ public class GenerateRFAMsubsets {
 			beenSampled [ fam ][ random ] = true ; 
 			fam_seqs++ ; 
 
-			scan : for ( int query = 1 ; query != SeqNames[ fam ].length  ; query++ ) {
-				if ( query == random ) 
+			///////////////////////////////////////////////	
+			// 	
+			// 	Pseudo-random sampling 
+			//	If a random choice has already been selected, 
+			//  increments index until an unsampled sequence is found. 
+			//
+			//scan : for ( int selected = 1 ; selected != SeqNames[ fam ].length  ; selected++ ) {
+			int num_sampled = 1 ; 
+			scan : while ( 	num_sampled < SeqNames[ fam ].length && num_sampled <= MAX_PER_FAM  ) { 
+				// get a random sample index
+				int sample = (int) (Math.random() * ((double) SeqNames[ fam ].length -1));
+				//make sure it's not the 'anchor' 
+				if ( sample == random ) 
 					continue scan; 
-
-				query_len = SeqChars[ fam ][ query ].replaceAll("-","").length();
+				//increment until an unsampled sequence is found
+				while ( beenSampled [ fam ][ sample ] ) {
+					if ( sample + 1 >= SeqNames[ fam ].length )
+						sample = 0 ; 
+					else 
+						sample++ ; 
+				}
+				beenSampled [ fam ][ sample ] = true ;
+				num_sampled++; 
 				//length of sequence without gaps
+				query_len = SeqChars[ fam ][ sample ].replaceAll("-","").length();
+
  				if ( query_len >= MIN_WIN && query_len <= MAX_WIN ) {
 					double pid = 0; 			
-					pid = GetPID( SeqChars[ fam ][ random ], SeqChars[ fam ][ query ]) * 100 ;
+					pid = GetPID( SeqChars[ fam ][ random ], SeqChars[ fam ][ sample ]) * 100 ;
+					// Ensure already sampled sequences don't clash (PIDs >> or << )
 					if ( (int) pid > MAX_PI || (int) pid < MIN_PI )
 						continue scan ; 
-					// Ensure already sampled sequences don't clash (PIDs >> or << )
-					for (int sampled = 0 ; sampled != query ; sampled++ ) {
-						// compare a query to all previously included sequences  
-						if ( beenSampled[ fam ][ sampled ] ) {   
-							pid = GetPID( SeqChars[ fam ][ sampled ], SeqChars[ fam ][ query ]) * 100 ;
-							if ( (int) pid > MAX_PI || (int) pid < MIN_PI )
+					// compare a query to all previously included sequences  
+					// for (int selected = 0 ; selected != selected ; selected++ ) {
+					// 	if ( beenSampled[ fam ][ selected ] ) {   
+					// 		pid = GetPID( SeqChars[ fam ][ selected ], SeqChars[ fam ][ selected ]) * 100 ;
+					// 		if ( (int) pid > MAX_PI || (int) pid < MIN_PI )
+					// 			continue scan ; 
+					// 	}
+					// }
+					
+					if ( fam_seqs > 1 ) {
+						if (VERBOSE) System.err.println(	" -cross-checking sample #"+fam_seqs+" "+SeqNames[ fam ] [ sample ]);
+
+				    	Collection C = SampledSeqs.values();  
+    					Iterator<String> ITR = C.iterator();
+    					while(ITR.hasNext()) {
+      					 	pid = GetPID( SeqChars[ fam ][ sample ], ITR.next() ) * 100 ;
+      					 	if ( (int) pid > MAX_PI || (int) pid < MIN_PI )
 								continue scan ; 
 						}
-					}
-					if (VERBOSE) 												
-					// print out some basic information
-					System.err.println(	"[ NOTE ] added :\n\t"+ RFAM_ID +"\t"+ SeqNames[ fam ] [ query ] 
-							+"\t"+ (int) pid +"\t"+ query_len +"\t"+ fam_seqs ); 
+    				}
+					if (VERBOSE)	 												
+						// print out some basic information
+						System.err.println(	"[ NOTE ] adding :\n\t"+ RFAM_ID +"\t"+ SeqNames[ fam ] [ sample ] 
+								+"\t"+ (int) pid +"\t"+ query_len +"\t"+ fam_seqs ); 
 					// Looks good, add it to output hashmap
 					SampledSeqs.put( ">"+RFAM_ID+"_"
-										+SeqNames[ fam ] [ query ].substring(1, SeqNames[ fam ] [ query ].indexOf(".") )
-										+"_"+(fam_seqs+1) +"_"+ (int) pid , SeqChars[ fam ][ query ]) 	;	
-					// mark it as sampled
-					beenSampled [ fam ][ query ] = 	true ; 
+										+SeqNames[ fam ] [ sample ].substring(1, SeqNames[ fam ] [ sample ].indexOf(".") )
+										+"_"+(fam_seqs+1) +"_"+ (int) pid , SeqChars[ fam ][ sample ]) 	;	
 					fam_seqs++ ; 
 				}
 				if ( fam_seqs == MAX_PER_FAM) {
@@ -304,7 +334,7 @@ public class GenerateRFAMsubsets {
 					
 					// Strip gaps form consensus structure
 					if (STRIP) {  // take it off
-						if ( Aligned.length() != SeqChars[ fam ][ 0 ].length() )
+						//if ( Aligned.length() != SeqChars[ fam ][ 0 ].length() )
 							//System.err.println("[ WARNING ] Sequence size inconsistency! " +RFAM_ID+" "
 							//					+Aligned.length()+" "+SeqChars[ fam ][ 0 ].length());
 						String SeqStripped = new String() ;

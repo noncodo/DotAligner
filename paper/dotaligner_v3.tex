@@ -412,9 +412,9 @@ secondary structure  and that from the reference using \texttt{RNAdistance} from
 %%%%%%%%%%%%%%%%%
 %    Martin's scripts in a github folder
 %%%%%%%%%%%%%%%%%
-The seed alignments from RFAM 12.0 were downloaded, split into families, and converted from Stockholm
+The seed alignments from RFAM 12.0 \cite{nawrocki2014rfam} were downloaded, split into families, and converted from Stockholm
 to Fasta file formats. Only RFAM entries with published tertiary or crystal structures, without nested base-pairs 
-(pseudoknots), and with at least 10 representatives were retained for subsequent sampling. A modified version 
+(pseudoknots---natively excluded in RFAM v12.0), and with at least 10 representatives were retained for subsequent sampling. A modified version 
 of the RFAM sampling software described in  \cite{smith2013widespread} was used to extract representative 
 sequences from the seed alignments with restrictions on their sequence composition and length. The program
 (\texttt{GenerateRFAMsubsets.java}) incrementally samples each family (starting from RF00001) like so:
@@ -422,21 +422,16 @@ sequences from the seed alignments with restrictions on their sequence compositi
 \begin{enumerate}
 \item Random selection of an `anchor'  sequence within the RFAM entry that satisfies the size constraints. 
 If no sequence is found after 250 random draws, the next RFAM entry is sampled;
-
 \item  Each sequence of compatible size in the current RFAM entry is compared to the `anchor'. 
 If the pairwise sequence identity of both sequences is within the minimum and maximum constraints, 
 the sequence is retained. Pairwise sequence identity is calculated as the number of non-indel matches 
 divided by the length of the smaller sequence; 
-
 \item Step \texttt{2} is repeated. However, each  additional sequence must satisfy the min and max sequence 
 identity constraints  against all previously retained sequences, ensuring that the overall sequence identity of the sampled 
 RFAM entry lies within the constrained range; 
-
 \item Once a maximal amount of sequences are selected (default 20), or if no match to the `anchor' is found, 
 the next RFAM entry is sampled. 
-
 \item The sampling continues until all RFAM entries have been surveyed or a user-defined ceiling is reached. 
-
 \end{enumerate}
 
 
@@ -444,16 +439,39 @@ the next RFAM entry is sampled.
 The RFAM accessions from sequences sampled using the above-mentioned strategy were used to populate a binary matrix 
 serving as a reference classifier. In other words, if any 2 sequences being compared belong to the same structure family,
 the corresponding position in the matrix is instantiated with ``1", or ``0" otherwise. Another matrix is then populated with the 
-results of a given pairwise alignment/comparison  algorithm (using the same sequences) that have been normalized between 0 and 1 
+alignment/comparison score from a given algorithm  (using the same sequences) that have been normalized between 0 and 1 
 (min and max score, respectively). The empirical matrix is evaluated against the binary classification matrix via Receiver 
-Operating Characteristic (ROC) and the Area Under the Curve (AUC) of the ROC using the pROC R package \cite{robin2011proc}. \\
+Operating Characteristic (ROC) and the Area Under the Curve (AUC) of the ROC using the \texttt{pROC} R package \cite{robin2011proc}. \\
 
-This approach was used for both refined parameter optimization of \dotaligner and for comparative performance benchmarking of 
-pairwise RNA structure/sequence alignment algorithms (on separate datasets generated via the stochastic sampling).  The algorithms 
+This approach was used for both refined parameter optimization of \dotaligner  and for comparative performance benchmarking of pairwise RNA structure/sequence alignment algorithms (on separate datasets generated via the stochastic sampling). \\
+
+\noindent \textit{\textbf{Additional parameter range for refined parameter optimization}:}\\
+\noindent \textbf{First round (coarse)}
+
+\noindent k in 0.25 0.5 0.75\\
+t in 0.25 0.5 0.75\\
+s in 5000 1000 200\\
+T in 10 5 1\\
+o in 0.75 1\\
+e in 0.05 0.2\\
+
+\noindent \textbf{Second round (fine)}
+
+\noindent  k in 0.3 0.4 0.5 0.6 \\
+t in 0.5 0.6 0.7 0.8 \\
+s in 1 5 20 50 \\
+T in 10 5 1\\
+o in 1\\
+e in 0.05\\
+
+In addition to \dotaligner{}, the algorithms 
 used for performance benchmarking include: 
 \begin{itemize}
 \item \locarna{} 
-
+\item \carna{}
+\item \foldalign{}
+\item \pmcomp{}
+\item \nw{} 
 \end{itemize}
 
 \subsection{\textit{ Cluster analysis and extraction }}
@@ -468,7 +486,7 @@ The 53 narrowPeak bed files (available in April 2016) asociated with the human e
 
 
 \section{\uppercase{Results}}
-\subsection*{\textit{Fast and accurate identification of known RNA families }}
+\subsection*{\textit{ Parameter optimization }}
 The \dotaligner{} algorithm implements several theoretical parameters that first need to 
 be tuned before applying this tool to biological sequence analysis. All combinations of 
 core parameters were tested on the 8,976 pairwise RNA structure alignments  curated in the 
@@ -489,39 +507,8 @@ added into RFAM given their similarity to covariance models, we dismissed this
 possibility to ensure both metrics were compatible with and directly comparable 
 to the reference structures. 
 
-\begin{tabular}{|c|c|}
-\hline 
-$\Delta{} SCI < 0$  & $\Delta{} SCI \geq 0$ \\ 
-\hline 
-5S rRNA & Cobalamin \\
-5.8S rRNA & Entero CRE \\
-Entero 5 CRE & HCV SLIV \\
-Entero OriR & Hammerhead 1 \\
-HCV SLVII & HepC CRE \\
-HIV FE & Histone3 \\
-HIV GSL3 & Lysine\\
-HIV PBS & SRP bact \\
-Hammerhead 3 & U1 \\
-IRES HCV & UnaL2 \\
-IRES Picorna & yybP-ykoY \\
-Intron gpII & \\
-K chan RES & \\
-Retroviral psi & \\
-SECIS & \\
-SRP euk arch & \\
-S box & \\
-T-box & \\
-TAR & \\
-THI & \\
-U2 & \\
-U6 & \\
-gcvT & \\
-sno 14q I II & \\
-tRNA & \\
-\hline 
-\end{tabular} 
 
-We performed a rank-based selection of the globally optimal parameters for \dotaligner{}. 
+We performed a product rank selection of the globally optimal parameters for \dotaligner{}. 
 As several combinations of parameters gave optimal results, we selected those that were 
 consistently present in the top scoring alignments across as many families as possible by 
 ranking the alignments in function of their SCI score, ensuring they had a null edit distance 
@@ -541,21 +528,15 @@ aforementioned variables. These parameters include:
 	\item The minimal unpaired/pairing probability $p_0$ ( default 0.0005).
 \end{itemize}
 
-\emph{QUECK's final parameter optimisation results here.}
+\emph{0.2 1.0 k0.7 t0.5}
 
-\subsection{Benchmarking performance on homologous RNA families} 
+\subsection{Benchmarking performance using heterogenous samples of structured RNAs} 
 
-\noindent Our intended application of pairwise RNA structure alignments is 
-for the identification of homologous motifs from a pool of biological sequences. 
-We therefore tested the reliability of \dotaligner{} at clustering homologous RNA 
-families with well described structure topologies from the latest release of RFAM 
-\cite{nawrocki2014rfam}. To achieve this, we created a pipeline to stochastically 
-sample the entire RFAM seed alignments and extracted up to 200 sequences 
-within a specific size and range of pairwise sequence identity. N.B., the pairwise 
-sequence identity selection could only be performed within individual families, 
-which were each capped at 20 sequences. 
+\noindent As our intended application of pairwise RNA structure alignments is for the identification of homologous motifs from a pool of biological sequences, we measured the accuracy of \dotaligner{} using a more suitable benchmark than the cummulative score distribution of individual comparisons. We subsampled the structured RNA reference alignments from RFAM \cite{nawrocki2014rfam} using a stochastic sampling approach, which ensures that the sampled sequences present user-constrained sequence characteristics (see \textbf{Materials and Methods}). Two test samples of 200 sequences (no more than 20 per family) were generated for initial benchmarking: a low pairwise sequence identity (low-pi ) and a high pairwise sequence identity (high-pi) set, where all sequences from the same family share between 0-55\% and 56-95\% sequence identity, respectively. These pooled sets of sequences with heteregeneous RNA structures provide a more practical benchmarking test set, with potential background interference between structurally related sequences. \\
 
-To assess how well \dotaligner{} reproduces known classifications of RNA structure, 
+The optimal \dotaligner{} parameters identified through the \bralibase{} analysis were refined by performing all \textit{vs} all pairwise alignments on the low-pi and high-pi datasets, using a range of different parameter combinations. The output of each parameter combination was then compared to a binary classification matrix and subjected to Receiver Operating Characteristic (ROC) analysis (see \textbf{Materials and Methods}). Parameters with the 
+
+To assess how well \dotaligner{} reproduces known classifications of RNA structure,
 we compared the normalized scores from all vs all pairwise comparisons on the 
 stochastically sampled RFAM input (similarity matrix) to a binary matrix representing
 the RFAM classifications (\textbf{FIGURE XXX}). 
@@ -603,33 +584,6 @@ alignments.}
 
 \subsection{Complete RFAM sequences}
 
-Global alignment. More emphasis on quantitative clustering, accuracy, and
-correlation with control. 
-
-\begin{tabular}{|l|c|c|c|}
-\hline 
- & \multicolumn{3}{c|}{SeqId 10 \ldots 55} \\
- & SP & SN & Time [s] \\ 
-\hline 
-\dotaligner & 84.1 & 64.8 & 7.2 \\ 
-\carna & ? & ? & ? \\ 
-\locarna & 96.9 & 54.0 & ? \\ 
-\foldalign & 88.6 & 73.7 & 34.8 \\ 
-\pmcomp & 97.9 & 35.7 & 289.9 \\ 
-\nw & 92.6 & 54.6 & 0.002 \\
-\hline 
-\hline 
- & \multicolumn{3}{c|}{SeqId 56 \ldots 95} \\
- & SP & SN & Time [s] \\ 
-\dotaligner & 100 & 86.4 & 7.1 \\ 
-\carna & ? & ? & ? \\ 
-\locarna & ? & ? & ? \\ 
-\foldalign & 97.2 & 79.7 & 37.5 \\ 
-\pmcomp & 100 & 64.5 & 338.4 \\ 
-\nw & 91.8 & 90.2 & 0.002 \\
-\hline 
-\end{tabular} 
-
 \GRAY{We compare \dotaligner{} with sequence alignments (in-house
 implementation of Needleman-Wunsch algorithm with the blastn parameters match
 $=$ 2, mismatch $=$ -3 and gap penalty $=$ 5 which are optimized for sequence
@@ -644,18 +598,7 @@ specificity. With \dotaligner{} we are able to find very well defined clusters (
 $=$ 0.99), however, at the cost of sensitivity (SN $=$ 0.61), see Figure
 \ref{fig:dotaligner_g4_cluster}.}
 
-\begin{figure*}[!ht]
-  \centering
-  {\epsfig{file = snornal140_dotaligner_g4_bootstrap1000.eps, width = 1\textwidth}}
-  \caption{\GRAY{Automated hierarchical clustering of 300 sequences from 10 H/ACA
-  snoRNA families. The dissimilarity matrix was calculated through \dotaligner{}
-  with gap penalty 4. The clustering was conducted by the R-package \pvclust{}
-  with multiscale bootstrap resampling with number of bootstrap 1000. We define
-  clusters (red rectangles) as Approximately Unbiased (AU) \textit{p}-values $>$
-  0.95 rejecting the hypothesis that ``the cluster does not exist`` with
-  significance level 0.05.}}
-  \label{fig:dotaligner_g4_cluster}
-\end{figure*}
+
 
 
 \subsection{Fragmented RFAM sequences} 
@@ -762,15 +705,59 @@ thermodynamic and evolutionary information.
 
 \noindent I thank the Carlsberg foundation for my travel grant. Sk\aa l! \\
 MAS is funded in part by a Cancer Council NSW project grant and 
-
-
-
 \vfill
 \bibliographystyle{apalike}
 {\small
 \bibliography{dotaligner}}
-
-
 \vfill
+
+\cleardoublepage
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 				SUPPLEMENTARY INFORMATION
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\onecolumn
+\section*{\uppercase{Supplementary Information}}
+
+\begin{table}
+\caption{Table Title}
+\begin{tabular}{|c|c|}
+\hline 
+$\Delta{} SCI < 0$  & $\Delta{} SCI \geq 0$ \\ 
+\hline 
+5S rRNA & Cobalamin \\
+5.8S rRNA & Entero CRE \\
+Entero 5 CRE & HCV SLIV \\
+Entero OriR & Hammerhead 1 \\
+HCV SLVII & HepC CRE \\
+HIV FE & Histone3 \\
+HIV GSL3 & Lysine\\
+HIV PBS & SRP bact \\
+Hammerhead 3 & U1 \\
+IRES HCV & UnaL2 \\
+IRES Picorna & yybP-ykoY \\
+Intron gpII & \\
+K chan RES & \\
+Retroviral psi & \\
+SECIS & \\
+SRP euk arch & \\
+S box & \\
+T-box & \\
+TAR & \\
+1U2 & \\
+U6 & \\
+gcvT & \\
+sno 14q I II & \\
+tRNA & \\
+\hline 
+\end{tabular} 
+\\[10pt]
+\caption*{The caption without a number}
+\end{table}
+
+
 \end{document}
 

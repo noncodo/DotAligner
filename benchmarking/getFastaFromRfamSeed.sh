@@ -74,13 +74,13 @@ if [[ ! -d ./fastas ]]; then
 fi
 
 ########################################
->&2 echo  "==> Extracting less similar [10-55%] sequences for benchmarking..."
+>&2 echo -n "==> Extracting less similar [10-55%] sequences for benchmarking..."
 #######################################
 #### Make a .jar file instead?
 
 java GenerateRFAMsubsets -min_win 70 -max_win 170 -min_pi 10 -max_pi 55 -o ./low_pi_test -i fastas -strip 2> ./low_pi_test/sampling.log
 >&2 echo "DONE"
->&2 echo "==> Extracting more similar [56-95%]sequences for benchmarking..."
+>&2 echo -n "==> Extracting more similar [56-95%]sequences for benchmarking..."
 java GenerateRFAMsubsets -min_win 70 -max_win 170 -min_pi 56 -max_pi 95 -o ./high_pi_test -i fastas -strip 2> ./high_pi_test/sampling.log
 >&2 echo "DONE"
 
@@ -123,7 +123,7 @@ for file in *dp.ps ; do
 	echo `pwd`/pp/${file%*.ps}.pp >> file_list.txt
 	>&2 printf "\r$fileNum structures processed into base pairing matrices" 
 done
-echo
+echo "...DONE"
 
 
 ########################################
@@ -161,4 +161,4 @@ for file in *dp.ps ; do
 	echo `pwd`/pp/${file%*.ps}.pp >> file_list.txt
 	>&2 printf "\r$fileNum structures processed into base pairing matrices" 
 done
-echo
+echo "...DONE"

@@ -1,0 +1,41 @@
+#!/bin/bash
+#$ -cwd                       	# Change to current working directory 
+#$ -V                         	# Export environment variables into script 
+#$ -S /bin/bash					# Enforce bash 
+
+###########################################################################
+#####		             Convert ps to pp  							  #####
+###########################################################################
+
+DOTALNBIN=$( which DotAligner )
+NUMFILES=$( ls ps | wc -l  )
+SPAN=$(( $NUMFILES / ($SGE_TASK_LAST - 1)  ))
+echo -e "[ START ]\t"$JOB_ID"\t"${SGE_TASK_ID}"\t"${HOSTNAME}"\t"`date`"\t" > logs/makePP.${SGE_TASK_ID}
+echo -e "first line "$(( ( $SGE_TASK_ID -1 ) * ${SPAN} ))"; last "$(( $SGE_TASK_ID * ${SPAN} )) >> logs/makePP.${SGE_TASK_ID}
+echo -e "SPAN= "$SPAN"; NUMFILES=" $NUMFILES"; LAST TASK ID= "$SGE_TASK_LAST"; PWD= "$(pwd) >> logs/makePP.${SGE_TASK_ID}
+echo 
+echo $PATH 
+echo 
+which java
+
+
+mkdir temp/$SGE_TASK_ID
+
+if [[ ${SGE_TASK_ID} -ne ${SGE_TASK_LAST} ]]; then 
+	ls ps | head -n $(( $SGE_TASK_ID * ${SPAN} )) |\
+ 	 		tail -n ${SPAN} |\
+ 	 		while read line ; do 
+ 	 			cp ps/$line temp/${SGE_TASK_ID}/
+	 		done	
+else
+	SPAN=$(( $NUMFILES - ( $SPAN * ( ${SGE_TASK_LAST} -1 ) ) ))
+	ls ps | tail -n ${SPAN} |\
+ 	while read line ; do 
+ 	 		cp ps/$line temp/${SGE_TASK_ID}/
+ 	 done
+fi
+
+java -Xms512m -Xmx1500m -Djava.io.tmpdir=./ -classpath ${DOTALNBIN%/*} ps2pp temp/${SGE_TASK_DIR}/ 
+
+echo -e "[ STOP ] Completed job "$JOB_ID":"${SGE_TASK_ID}" "`date` >> logs/makePP.${SGE_TASK_ID}
+echo -e "[ USAGE ] "$(qstat -j ${JOB_ID} | grep usage | grep ${SGE_TASK_ID}: ) >> logs/makePP.${SGE_TASK_ID}

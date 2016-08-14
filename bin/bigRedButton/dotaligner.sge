@@ -1,0 +1,44 @@
+#!/bin/bash
+################################# SGE submission options
+#$ -cwd                       	# Change to current working directory
+#$ -V                         	# Export environment variables into script
+#$ -S /bin/bash					# Enforce bash (don't touch!!!!)
+#$ -j y
+
+# this loads the appropriate environmental variables
+## should already be laoded with the -V flag in 2D clust
+# module load marsmi/dotaligner/27032014
+
+PAIRWISE_LIST=$1
+KAPPA=$2
+ALPHA=$3
+BETA=$4
+RADIUS=$5
+THETA=$6
+DELTANULL=$7
+SEEDLEN=$8
+MAXSHIFT=$9
+PRECISION=${10}
+PNULL=${11}
+SEQALN=${12}
+SUBSET=$(ls ${PAIRWISE_LIST%/*}/array_??? | head -n ${SGE_TASK_ID} | tail -n 1) 
+
+DOTALIGNER_BIN=$( which DotAligner2 ) 
+if [[ -z $DOTALIGNER_BIN ]]; then
+	echo -e "\e[91m[ ERROR ]\e[0m DotAligner2 binary not found! Have you loaded the module/PATH properly? Perhaps Stefan has played around with the code too much"
+	exit 1 
+fi
+
+
+cat $SUBSET | while read line ; do
+    echo -n $line" " >> $SUBSET.dotaligner
+    FILE_1=$(echo $line | awk '{print $1}')
+    FILE_2=$(echo $line | awk '{print $2}')
+## For old dotaligner:
+#    DotAligner -d ${FILE_1%ps}pp -d ${FILE_2%ps}pp -k 0.3 -a -0.05 -b -0.05 -r 5 -t 0.5 -l 0.5 -s 0 -m 15 --seqaln \
+#    		| grep Similarity | awk '{print $3}' | sed 's/,//'  >> $SUBSET.dotaligner
+# 	removed this from DotAligner2:  -r $RADIUS -l $DELTANULL -m $MAXSHIFT 
+    $DOTALIGNER_BIN -d ${FILE_1%ps}pp -d ${FILE_2%ps}pp -k $KAPPA -a $ALPHA -b $BETA -t $THETA -s $SEEDLEN -p $PRECISION -n $PNULL $SEQALN \
+    		| grep Similarity | awk '{print $3}' | sed 's/,//'  >> $SUBSET.dotaligner
+done
+

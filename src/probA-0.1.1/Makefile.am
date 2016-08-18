@@ -16,8 +16,8 @@ EXTRA_DIST= probA.1
 #TESTS=chk
 
 #  build and install the .info pages
-info_TEXINFOS = probA_lib.texi
-probA_TEXINFOS = gpl.texinfo
+#info_TEXINFOS = probA_lib.texi
+#probA_TEXINFOS = gpl.texinfo
     
 #  install the man pages
 man_MANS=probA.1

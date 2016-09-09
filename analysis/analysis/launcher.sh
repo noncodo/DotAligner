@@ -137,14 +137,14 @@ cd $BASEDIR
 ################################################################
 if [[ ! -d $BASEDIR/hpc ]]; then mkdir $BASEDIR/hpc ; fi      
 CMD="qsub -V -cwd -P ${GRID_ACCOUNT} -N DotAlnR -terse
- -o $BASEDIR/logs/launcher.$(date +"%d%m%y-%H%M").out 
- -e $BASEDIR/logs/launcher.$(date +"%d%m%y-%H%M").err 
+ -o ${BASEDIR}/logs/launcher.$(date +"%d%m%y-%H%M").out 
+ -e ${BASEDIR}/logs/launcher.$(date +"%d%m%y-%H%M").err 
  -pe smp 1 "
 # Dotaligner doesnt need much memory
 CMD=${CMD}" -l mem_requested=1256M,h_vmem=1512M
  -t 1:$((1+${NUMPW}/$LINESperFILE)) 
  -b y -S /bin/bash 
- ./worker.sge ${1}"
+ ${BASEDIT}/worker.sge ${1}"
 #JID=$( $CMD ) 
 echo "launching: "$CMD 
 JID=$( echo ${JID} | cut -d "." -f 1 )

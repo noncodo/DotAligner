@@ -66,7 +66,7 @@ if [[ -d pp ]]; then
     echo -ne "Do you want to regenerate them? (y/N)\e[0m "
     read -n1 rePP
     echo -e
-    if [[ $rePP != 'n' && $redo != 'N' ]]; then 
+    if [[ $rePP != 'n' && $rePP != 'N' ]]; then 
       NoPP=1
     fi
   fi

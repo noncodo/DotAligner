@@ -35,7 +35,7 @@ else
  	 done
 fi
 
-java -Xms512m -Xmx1500m -Djava.io.tmpdir=./ -classpath ${DOTALNBIN%/*} ps2pp temp/${SGE_TASK_DIR}/ 
+java -Xmx1500M -Djava.io.tmpdir=./ -classpath ${DOTALNBIN%/*} ps2pp temp/${SGE_TASK_DIR}/ 
 
 echo -e "[ STOP ] Completed job "$JOB_ID":"${SGE_TASK_ID}" "`date` >> logs/makePP.${SGE_TASK_ID}
 echo -e "[ USAGE ] "$(qstat -j ${JOB_ID} | grep usage | grep ${SGE_TASK_ID}: ) >> logs/makePP.${SGE_TASK_ID}

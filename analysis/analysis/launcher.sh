@@ -144,7 +144,7 @@ CMD="qsub -V -cwd -P ${GRID_ACCOUNT} -N DotAlnR -terse
 CMD=${CMD}" -l mem_requested=1256M,h_vmem=1512M
  -t 1:$((1+${NUMPW}/$LINESperFILE)) 
  -b y -S /bin/bash 
- ${BASEDIT}/worker.sge ${1}"
+ ${BASEDIR}/../worker.sge ${1}"
 #JID=$( $CMD ) 
 echo "launching: "$CMD 
 JID=$( echo ${JID} | cut -d "." -f 1 )

@@ -73,7 +73,7 @@ if [[ -d pp ]]; then
 else
   mkdir pp
 fi
-if [[ ! -z $NoPP ]]; then 
+if [[ -z $NoPP ]]; then 
   >&2 echo -e "Converting RNA base-pairing probability matrices "
   CMD="qsub -V -sync y -cwd -P ${GRID_ACCOUNT} -N makePP 
  -o $BASEDIR/logs/makePP.$(date +"%d%m%y-%H%M").out 

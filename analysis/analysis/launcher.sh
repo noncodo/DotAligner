@@ -21,8 +21,6 @@ MAXGRIDCPU=179 # make an option for non HPC environments
 GRID_ACCOUNT="RNABiologyandPlasticity"
 
 
-
-
 #################################################################
 #	Fold RNA to get dotplots
 #################################################################
@@ -35,7 +33,7 @@ foldit () {
  >&2 echo -e "DONE"  
 }
 ## TO DO : parallelize to make it faster 
-echo -e "[DEBUG] BASEDIR= "$BASEDIR
+>&2 echo -e "[DEBUG] BASEDIR= "$BASEDIR
 if [[ ! -d $BASEDIR/logs ]]; then mkdir -p $BASEDIR/logs ; fi
 cd $BASEDIR	
 if [[ ! -d ps ]]; then 
@@ -60,6 +58,8 @@ cd $BASEDIR
 #################################################################
 if [[ ! -d temp ]]; then mkdir temp ; fi
 if [[ -e file_list.txt ]]; then rm file_list.txt ; fi
+#Avoid 'ls' too many times in HPC
+ls ps/ > file_list.txt
 if [[ -d pp ]]; then 
   if [[ $( ls pp | wc -l ) -eq $( ls ps | wc -l ) ]]; then 
     echo -e "\e[33mDetected existing pairwise probability files."
@@ -75,11 +75,11 @@ else
 fi
 if [[ -z $NoPP ]]; then 
   >&2 echo -e "Converting RNA base-pairing probability matrices "
+  # N.B. Java VM requires close to 7.5GB of RAM 
   CMD="qsub -V -sync y -cwd -P ${GRID_ACCOUNT} -N makePP 
  -o $BASEDIR/logs/makePP.$(date +"%d%m%y-%H%M").out 
  -e $BASEDIR/logs/makePP.$(date +"%d%m%y-%H%M").err 
  -pe smp 1 
- -l mem_requested=2G,h_vmem=2G
  -t 1:${MAXGRIDCPU}
  -b y -S /bin/bash
  ../makePP.sge"
@@ -145,7 +145,7 @@ CMD=${CMD}" -l mem_requested=1256M,h_vmem=1512M
  -t 1:$((1+${NUMPW}/$LINESperFILE)) 
  -b y -S /bin/bash 
  ${BASEDIR}/../worker.sge ${1}"
-#JID=$( $CMD ) 
-echo "launching: "$CMD 
+JID=$( $CMD ) 
+echo "launched: "$CMD 
 JID=$( echo ${JID} | cut -d "." -f 1 )
 #qsub -hold_jid $JID -V -o ./$1/logs/dotaligner.$(date +"%d%m%y-%H%M").clean -cwd -N clean_dotalnr -pe smp 1 -l mem_requested=1G,h_vmem=1G -j y -b y ./cleanup.sge $1 dotaligner

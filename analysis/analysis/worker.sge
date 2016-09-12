@@ -27,7 +27,8 @@ cat $SUBSET | while read line ; do
  	F2=pp/$( echo ${line} | awk 'OFS="\t"{ print $4}' ) 
  	OUT=$( $DOTALNBIN -d ${F1//ps/pp} -d ${F2//ps/pp} -o 1 -e 0.05 -t 0.5 -k 0.3 -s 1 -T 10 |\
     				tee -a hpc/${SUBSET##*/}.out |\
-    				awk '{ print $1,$2,$5}' >> hpc/${SUBSET##*/}.score ) 
+    				awk '{ print $1,$2,$5}' >> hpc/${SUBSET##*/}.score )
+    echo >> hpc/${SUBSET##*/}.out
     # no try/catch in bash. This returns "-0" for failed jobs. 
     # N.B. DotAligner NEVER fails....
     if [[ ! -z "$OUT" ]] 

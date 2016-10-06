@@ -1,0 +1,59 @@
+#!/bin/bash
+#$ -cwd                       	# Change to current working directory 
+#$ -V                         	# Export environment variables into script 
+#$ -S /bin/bash					# Enforce bash 
+
+###########################################################################
+#####		         Convert ps to pp                             #####
+###########################################################################
+DOTALNBIN=$( which DotAligner )
+NUMFILES=$( cat file_list.txt | wc -l  )
+SPAN=$(( $NUMFILES / ($SGE_TASK_LAST - 1)  ))
+echo -e "[ START ]\t"$JOB_ID"\t"${SGE_TASK_ID}"\t"${HOSTNAME}"\t"`date`"\t" > logs/makePP.${SGE_TASK_ID}
+echo -e "first line "$(( ( $SGE_TASK_ID -1 ) * ${SPAN} ))"; last "$(( $SGE_TASK_ID * ${SPAN} )) >> logs/makePP.${SGE_TASK_ID}
+echo -e "SPAN= "$SPAN"; NUMFILES=" $NUMFILES"; LAST TASK ID= "$SGE_TASK_LAST"; PWD= "$(pwd) >> logs/makePP.${SGE_TASK_ID}
+echo >> logs/makePP.${SGE_TASK_ID}
+<<<<<<< HEAD
+
+mkdir temp/$SGE_TASK_ID
+if [[ ${SGE_TASK_ID} -ne ${SGE_TASK_LAST} ]]; then 
+	 cat file_list.txt | head -n $(( $SGE_TASK_ID * ${SPAN} )) |\
+ 	 		tail -n ${SPAN} |\
+ 	 		while read line ; do 
+ 	 			cp ps/$line temp/${SGE_TASK_ID}/
+	 		done	
+else
+	SPAN=$(( $NUMFILES - ( $SPAN * ( ${SGE_TASK_LAST} -1 ) ) ))
+	cat file_list.txt | tail -n ${SPAN} |\
+ 	while read line ; do 
+=======
+echo "PATH: "$PATH >> logs/makePP.${SGE_TASK_ID}
+echo >> logs/makePP.${SGE_TASK_ID}
+
+mkdir temp/$SGE_TASK_ID
+if [[ ${SGE_TASK_ID} -ne ${SGE_TASK_LAST} ]]; then 
+	head -n $(( $SGE_TASK_ID * ${SPAN} )) file_list.txt | \
+ 		tail -n ${SPAN} |\
+ 	 	while read line ; do 
+ 	 		cp ps/$line temp/${SGE_TASK_ID}/
+	 	done	
+else
+	SPAN=$(( $NUMFILES - ( $SPAN * ( ${SGE_TASK_LAST} -1 ) ) ))
+	tail -n ${SPAN} file_list.txt | \
+ 		while read line ; do 
+>>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
+ 	 		cp ps/$line temp/${SGE_TASK_ID}/
+ 		done
+fi
+
+<<<<<<< HEAD
+CMD="java -Xmx256m -Xms128m -classpath ${DOTALNBIN%/*} ps2pp temp/${SGE_TASK_ID}/"
+echo $CMD && $CMD
+mv temp/${SGE_TASK_ID}/*pp pp/
+=======
+CMD="java -Xmx256m -Xms128m -classpath ${DOTALNBIN%/*} ps2pp temp/${SGE_TASK_DIR}/"
+echo $CMD >> logs/makePP.${SGE_TASK_ID} && $CMD
+>>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
+
+echo -e "[ STOP ] Completed job "$JOB_ID":"${SGE_TASK_ID}" "`date` >> logs/makePP.${SGE_TASK_ID}
+echo -e "[ USAGE ] "$(qstat -j ${JOB_ID} | grep usage | grep ${SGE_TASK_ID}: ) >> logs/makePP.${SGE_TASK_ID}

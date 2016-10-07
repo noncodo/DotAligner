@@ -338,21 +338,73 @@ cat("[R] performing density-based clustering ...", stderr())
 #kNNdistplot(D,k=5)
 #DB <- dbscan(D,eps=0.44,minPts=5)
 #O <- optics(D, eps=0.5, minPts=5, search="dist")
+
 printClust <- function( O ) {
-  NumClust <- max(O$cluster)
   for (cl in 1:NumClust) {
     print(paste("Cluster ======================== > ",cl)) ; 
     print(labels(D)[ O$cluster == cl ]) ;
   }
 }
+
 Oc <- opticsXi( optics(D, eps=1, minPts=5, search="dist") , 
-		xi = 0.05, minimum=T)
+		xi = 0.01, minimum=T)
 printClust(Oc)
 plot(Oc)
 pdf("reachability_plot_optics_xi.pdf")
   plot(Oc, lwd=0.5)
 dev.off()
+
 cat("[ \x1B[92mDONE\x1B[39m ]\n", stderr())
+
+# # get a list of optics clusters
+# NumClust <- max(Oc$clusters)
+# c <- vector("list", NumClust+1 )
+# for (cl in 0:NumClust) {
+# 	c[[cl+1]] <- labels(D)[ Oc$cluster == cl ]
+# }
+
+c <- list
+TP <- list
+NumClust <- max(Oc$clusters)
+i <- 1 
+for (cl in 0:NumClust) {
+	l <- length(  Oc[Oc$cluster == cl ] )
+	# extract non-null clusters
+	if ( l > 0  ) {
+		cat("Cluster ",i-1, "has ",l, "elements; ")
+		c[[ i ]] <- labels(D)[ Oc$cluster == cl ]
+		# get a vector of names
+		v <- sapply( strsplit( 
+				as.character( c[[ i ]] ), "_"), "[", 1 ) 
+		t <- table( v ) 
+		counts <- sort( as.data.frame( t )$Freq, decreasing=T )
+		# 1  RF00002    7
+		# 2 shuffled    2
+		# Ignore cluster if it has >1 major representative
+		if ( counts[2] == counts[1] ) {
+			cat( "but no major representative [ignoring it]")
+			skip
+		}
+		else {
+			#G et TP and FP
+			cID <- names( sort(t, decreasing=T)[1] )
+			cat( "major_rep: ", cID, " " )
+			TP <- c( TP, counts[1] )
+			cat( counts[1]," TP ",length(v)-counts[1]," FP \n" )
+		}
+		i <- i + 1
+	}
+}
+sort( as.data.frame( table(  ) )$Freq , decreasing=T)[1]
+
+# calculate main cluster component (TP)
+# calculate cluster components not in cluster (FN)
+# calculate others in cluster (FP)
+# calculate others not in cluster (TN)
+
+
+
+
 
 #plot(cut(hcd, h=75)$lower[[2]], 
 #     main="Second branch of lower tree with cut at h=75")

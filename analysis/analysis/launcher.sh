@@ -363,12 +363,15 @@ cat("[ \x1B[92mDONE\x1B[39m ]\n", stderr())
 # 	c[[cl+1]] <- labels(D)[ Oc$cluster == cl ]
 # }
 
+# Get counts of each sequence class
+idT <- table( sapply( strsplit( labels( D ), "_"), "[", 1 ) )
 c <- list
 TP <- list
+FP <- list
 NumClust <- max(Oc$clusters)
 i <- 1 
 for (cl in 0:NumClust) {
-	l <- length(  Oc[Oc$cluster == cl ] )
+	l <- length(  Oc[Oc$cluster == cl] )
 	# extract non-null clusters
 	if ( l > 0  ) {
 		cat("Cluster ",i-1, "has ",l, "elements; ")
@@ -376,25 +379,40 @@ for (cl in 0:NumClust) {
 		# get a vector of names
 		v <- sapply( strsplit( 
 				as.character( c[[ i ]] ), "_"), "[", 1 ) 
-		t <- table( v ) 
-		counts <- sort( as.data.frame( t )$Freq, decreasing=T )
+		t <- sort( table( v ), decreasing=T )
+		best <- as.integer( t[1] )
 		# 1  RF00002    7
 		# 2 shuffled    2
 		# Ignore cluster if it has >1 major representative
-		if ( counts[2] == counts[1] ) {
+		if ( as.integer( t[2] ) == best ) {
 			cat( "but no major representative [ignoring it]")
+			i <- i + 1 
 			skip
 		}
 		else {
-			#G et TP and FP
-			cID <- names( sort(t, decreasing=T)[1] )
-			cat( "major_rep: ", cID, " " )
-			TP <- c( TP, counts[1] )
-			cat( counts[1]," TP ",length(v)-counts[1]," FP \n" )
+			#Get TP and FP
+			cID <- names( t[ 1 ] )
+			if ( cl == 0 ) {
+				FN <- length(v)-best
+				TN <- best
+			}
+			else {
+				#cat( cID, " " )
+				TP[[ i - 1 ]] <- best
+				cat(best,"\n")
+				FP[[ i -1 ]] <- length(v)-best
+			}
 		}
 		i <- i + 1
 	}
 }
+SENS = sum(TP)/(sum(TP)+FN)
+SPEC = TN/(sum(FP)+TN)
+#FN <- list(FN, (as.integer( idT[ names(t[1]) ] ) - best ))
+			#TN <- TN[[ i ]] <- length(ids) - TP - FP - FN)
+			#cat( "TP ",TP," FP ",FP," TN ",TN," FN ",FN )
+			#cat( " SENS ",TP/(TP+FN)," SPEC ",TN/(TN+FP),"\n")
+
 sort( as.data.frame( table(  ) )$Freq , decreasing=T)[1]
 
 # calculate main cluster component (TP)

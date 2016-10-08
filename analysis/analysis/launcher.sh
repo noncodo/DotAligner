@@ -362,52 +362,90 @@ cat("[ \x1B[92mDONE\x1B[39m ]\n", stderr())
 # for (cl in 0:NumClust) {
 # 	c[[cl+1]] <- labels(D)[ Oc$cluster == cl ]
 # }
-
-# Get counts of each sequence class
-idT <- table( sapply( strsplit( labels( D ), "_"), "[", 1 ) )
-c <- list
-TP <- list
-FP <- list
-NumClust <- max(Oc$clusters)
-i <- 1 
-for (cl in 0:NumClust) {
-	l <- length(  Oc[Oc$cluster == cl] )
-	# extract non-null clusters
-	if ( l > 0  ) {
-		cat("Cluster ",i-1, "has ",l, "elements; ")
-		c[[ i ]] <- labels(D)[ Oc$cluster == cl ]
-		# get a vector of names
-		v <- sapply( strsplit( 
-				as.character( c[[ i ]] ), "_"), "[", 1 ) 
-		t <- sort( table( v ), decreasing=T )
-		best <- as.integer( t[1] )
-		# 1  RF00002    7
-		# 2 shuffled    2
-		# Ignore cluster if it has >1 major representative
-		if ( as.integer( t[2] ) == best ) {
-			cat( "but no major representative [ignoring it]")
-			i <- i + 1 
-			skip
-		}
-		else {
-			#Get TP and FP
-			cID <- names( t[ 1 ] )
-			if ( cl == 0 ) {
-				FN <- length(v)-best
-				TN <- best
+pdf("optics_benchmark_clstering.pdf", 6, 6)
+plot.new()
+plot.window(xlim=c(0,0.5), ylim=c(0,1))
+axis(1)
+axis(2)
+title(main="OPTICS clustering benchmark")
+title(xlab="False positive rate")
+title(ylab="Sensitivity")
+box()
+colors <- palette("default")
+mp <- c(3,4,5,6) 
+xi <- c(0.0001,0.0005,0.001,0.005,0.01,0.05)
+out <- list
+for (MP in mp ) {
+	for ( Xi in xi ) {
+		#Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi , minimum=T)
+		Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi )
+		# Get counts of each sequence class
+		idT <- table( sapply( strsplit( labels( D ), "_"), "[", 1 ) )
+		c <- list
+		TP <- list
+		FP <- list
+		NumClust <- max(Oc$cluster)
+		i <- 1 
+		for (cl in 0:NumClust) {
+			l <- length(  Oc[Oc$cluster == cl] )
+			# extract non-null clusters
+			if ( l > 0  ) {
+				#cat("Cluster ",i-1, "has ",l, "elements; ")
+				c[[ i ]] <- labels(D)[ Oc$cluster == cl ]
+				# get a vector of names
+				v <- sapply( strsplit( 
+						as.character( c[[ i ]] ), "_"), "[", 1 ) 
+				t <- sort( table( v ), decreasing=T )
+				best <- as.integer( t[1] )
+				# Ignore cluster if it has >1 major representative
+				if ( is.na( as.integer(t[2])) || as.integer( t[2] ) < best ) {
+					#Get TP and FP
+					cID <- names( t[ 1 ] )
+					if ( cl == 0 ) {
+						FN <- length(v)-best
+						TN <- best
+					}
+					else {
+						#cat( cID, " " )
+						TP[[ i - 1 ]] <- best
+						#cat(best,"\n")
+						FP[[ i -1 ]] <- length(v)-best
+					}
+					i <- i + 1
+				}
 			}
-			else {
-				#cat( cID, " " )
-				TP[[ i - 1 ]] <- best
-				cat(best,"\n")
-				FP[[ i -1 ]] <- length(v)-best
-			}
 		}
-		i <- i + 1
+		SENS = sum(TP)/(sum(TP)+FN)
+		SPEC = TN/(sum(FP)+TN)
+		points( (1-SPEC), SENS , pch=which(mp == MP) , col=palette()[which(xi == Xi)] )
+		out[[ i ]] <- c(MP, Xi, NumClust, SENS, SPEC)
 	}
 }
-SENS = sum(TP)/(sum(TP)+FN)
-SPEC = TN/(sum(FP)+TN)
+g <- Filter(Negate(is.null), out)
+gg <- as.data.frame(matrix(unlist(g), ncol=5, byrow=T))
+p <- ggplot(gg, aes(1-V5,V4, color=factor(V2), shape=factor(V1))) + 
+	geom_point(size=2, stroke=1.5) + 
+	theme_bw() + 
+	scale_color_brewer(palette = "Set1") + 
+	scale_y_continuous(lim=c(0,1),breaks=seq(0,1,0.1)) + 
+	scale_x_continuous(lim=c(0,0.5),breaks=seq(0,1,0.1)) +
+	scale_shape_manual(values=c(1,2,3,5)) +
+	labs( title="Optics clustering benchmark",
+	x = "False positive rate",
+	y = "Sensitivty",
+	color = "Steepness\nthreshold Xi", 
+	shape = "Minimum\npoints") +
+	geom_abline(intercept=0, slope=1, linetype=3)
+l <- ggplot(gg, aes(factor(V2),V3,group=factor(V1))) + geom_line(aes(color=factor(V1))) + geom_abline(intercept=33, slope=0, linetype=2) + 
+	geom_point(aes(factor(V2),V3, color=factor(V1)), size=2) +
+	labs( title="Clustering output of Optics parameters",
+		x = "Steepness threshold Xi",
+		y = "# of clusters",
+		color = "Minimum\npoints") +
+	theme_bw()
+
+
+
 #FN <- list(FN, (as.integer( idT[ names(t[1]) ] ) - best ))
 			#TN <- TN[[ i ]] <- length(ids) - TP - FP - FN)
 			#cat( "TP ",TP," FP ",FP," TN ",TN," FN ",FN )

@@ -44,7 +44,7 @@ logo() {
 >&2 echo -e "      \`+mMMMMNds++////++ohNNNNNm+\`      "
 >&2 echo -e "         :smMNNNNMMNNNNNNNNNds:         "
 >&2 echo -e "            \`:+shddmmddhs+:\`            \e[39m"
-                                    
+>&2 echo -e                            
 }
 
 foldit () {
@@ -91,24 +91,15 @@ cd $BASEDIR
 #################################################################
 if [[ ! -d temp ]]; then mkdir temp ; fi
 if [[ -e file_list.txt ]]; then rm file_list.txt ; fi
-<<<<<<< HEAD
 ls ps/ > file_list.txt && >&2 echo -e "[*] saving list of files"
 >&2  echo -ne "[*] searching for existing pairwise probability files..."
-=======
-#Avoid 'ls' too many times in HPC
-ls ps/ > file_list.txt
->>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
 if [[ -d pp ]]; then 
   if [[ $( ls pp/ | wc -l ) -eq $( ls ps | wc -l ) ]]; then 
     >&2 echo -e "[ \e[92mDONE\e[39m ]"  
     >&2 echo -ne "... detected existing pairwise probability files "
     >&2 echo -ne "    \e[31mDo you want to regenerate them?\e[39m [y/N] "
     read -n1 rePP
-<<<<<<< HEAD
     >&2 echo -e
-=======
-    echo -e
->>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
     if [[ $rePP != 'n' && $rePP != 'N' ]]; then 
       NoPP=1
     fi
@@ -118,18 +109,10 @@ else
   mkdir pp
 fi
 if [[ -z $NoPP ]]; then 
-<<<<<<< HEAD
   >&2 echo -e "[*] converting RNA base-pairing probability matrices (patience)..."
   CMD="qsub -V -terse -sync y -cwd -P ${GRID_ACCOUNT} -N makePP 
  -o $BASEDIR/logs/makePP."$(date +"%d%m%y-%H%M")".out 
  -e $BASEDIR/logs/makePP."$(date +"%d%m%y-%H%M")".err 
-=======
-  >&2 echo -e "Converting RNA base-pairing probability matrices "
-  # N.B. Java VM requires close to 7.5GB of RAM 
-  CMD="qsub -V -sync y -cwd -P ${GRID_ACCOUNT} -N makePP 
- -o $BASEDIR/logs/makePP.$(date +"%d%m%y-%H%M").out 
- -e $BASEDIR/logs/makePP.$(date +"%d%m%y-%H%M").err 
->>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
  -pe smp 1 
  -t 1:${MAXGRIDCPU}
  -b y -S /bin/bash
@@ -189,7 +172,6 @@ cd $BASEDIR
 ################################################################
 #                      RUN DOTALIGNER
 ################################################################
-<<<<<<< HEAD
 if [[ ! -d hpc ]]; then 
   mkdir hpc 
 else 
@@ -199,18 +181,11 @@ fi
 CMD="qsub -V -sync y -cwd -P ${GRID_ACCOUNT} -N DotAlnR -terse
  -o $BASEDIR/logs/launcher.$(date +"%d%m%y-%H%M").out 
  -e $BASEDIR/logs/launcher.$(date +"%d%m%y-%H%M").err 
-=======
-if [[ ! -d $BASEDIR/hpc ]]; then mkdir $BASEDIR/hpc ; fi      
-CMD="qsub -V -cwd -P ${GRID_ACCOUNT} -N DotAlnR -terse
- -o ${BASEDIR}/logs/launcher.$(date +"%d%m%y-%H%M").out 
- -e ${BASEDIR}/logs/launcher.$(date +"%d%m%y-%H%M").err 
->>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
  -pe smp 1 "
 # Dotaligner doesnt need much memory
 CMD=${CMD}" -l mem_requested=1256M,h_vmem=1512M
  -t 1:$((1+${NUMPW}/$LINESperFILE)) 
  -b y -S /bin/bash 
-<<<<<<< HEAD
  ../worker.sge ${1}"
 $CMD | while read line ; do 
   	counter=$(( $counter + 1 ))

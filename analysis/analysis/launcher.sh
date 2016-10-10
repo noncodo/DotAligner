@@ -61,11 +61,7 @@ foldit () {
 #                 Fold RNA to get dotplots
 #################################################################
 ## TO DO : parallelize to make it faster 
-<<<<<<< HEAD
-#>&2 echo -e "[DEBUG] BASEDIR= "$BASEDIR
-=======
 >&2 echo -e "[DEBUG] BASEDIR= "$BASEDIR
->>>>>>> 8d5862964db2eeac240e465312a44c46c9723858
 if [[ ! -d $BASEDIR/logs ]]; then mkdir -p $BASEDIR/logs ; fi
 cd $BASEDIR	&& >&2 echo -e "[*] working in BASEDIR: "$(pwd)
 >&2 echo -ne "[*] Evaluating folder contents ..."
@@ -446,7 +442,7 @@ p <- ggplot(gg) +
 	color = "Steepness\nthreshold Xi", 
 	shape = "Minimum\npoints") +
 	geom_abline(intercept=0, slope=1, linetype=3) 
-	
+
 l <- ggplot(gg, aes(factor(Xi), clusters, group=interaction(minPts,Minimum), shape=factor(Minimum), color=factor(minPts))) + 
 	geom_line(aes(linetype=factor(Minimum))) + 
 	geom_point(size=2, aes(stroke=1)) +

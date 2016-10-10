@@ -362,88 +362,102 @@ cat("[ \x1B[92mDONE\x1B[39m ]\n", stderr())
 # for (cl in 0:NumClust) {
 # 	c[[cl+1]] <- labels(D)[ Oc$cluster == cl ]
 # }
-pdf("optics_benchmark_clstering.pdf", 6, 6)
-plot.new()
-plot.window(xlim=c(0,0.5), ylim=c(0,1))
-axis(1)
-axis(2)
-title(main="OPTICS clustering benchmark")
-title(xlab="False positive rate")
-title(ylab="Sensitivity")
-box()
-colors <- palette("default")
+
 mp <- c(3,4,5,6) 
 xi <- c(0.0001,0.0005,0.001,0.005,0.01,0.05)
 out <- list
+cat("minPts","Xi","clusters","TP","TN","FP","FN","SENS","SPEC","Minimum","\n",sep="\t", file="cluster_bench.tsv")
 for (MP in mp ) {
 	for ( Xi in xi ) {
-		#Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi , minimum=T)
-		Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi )
-		# Get counts of each sequence class
-		idT <- table( sapply( strsplit( labels( D ), "_"), "[", 1 ) )
-		c <- list
-		TP <- list
-		FP <- list
-		NumClust <- max(Oc$cluster)
-		i <- 1 
-		for (cl in 0:NumClust) {
-			l <- length(  Oc[Oc$cluster == cl] )
-			# extract non-null clusters
-			if ( l > 0  ) {
-				#cat("Cluster ",i-1, "has ",l, "elements; ")
-				c[[ i ]] <- labels(D)[ Oc$cluster == cl ]
-				# get a vector of names
-				v <- sapply( strsplit( 
-						as.character( c[[ i ]] ), "_"), "[", 1 ) 
-				t <- sort( table( v ), decreasing=T )
-				best <- as.integer( t[1] )
-				# Ignore cluster if it has >1 major representative
-				if ( is.na( as.integer(t[2])) || as.integer( t[2] ) < best ) {
-					#Get TP and FP
-					cID <- names( t[ 1 ] )
-					if ( cl == 0 ) {
-						FN <- length(v)-best
-						TN <- best
+		for ( m in c(TRUE,FALSE)) {
+			#Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi , minimum=T)
+			Oc <- opticsXi( optics(D, eps=1, minPts=MP, search="dist") , xi = Xi , minimum = m )
+			# Get counts of each sequence class
+			idT <- table( sapply( strsplit( labels( D ), "_"), "[", 1 ) )
+			c <- list
+			TP <- list
+			FP <- list
+			NumClust <- max(Oc$cluster)
+			i <- 1 
+			SENS <- 0
+			SPEC <- 0 
+			best <- 0
+			clusters <- 0
+			v <- NA
+			if ( m == TRUE )
+				first <- 0
+			else
+				first <- 1
+			for (cl in first:NumClust) {
+				l <- length(  Oc[Oc$cluster == cl] )
+				# extract non-null clusters
+				if ( l > 0  ) {
+					clusters <- clusters + 1
+					#cat("======= Cluster ",i, "has ",l, "elements =======\n")
+					c[[ i ]] <- labels(D)[ Oc$cluster == cl ]
+					# get a vector of names
+					v <- sapply( strsplit( 
+							as.character( c[[ i ]] ), "_"), "[", 1 ) 
+					t <- sort( table( v ), decreasing=T )
+					best <- as.integer( t[1] )
+					# Ignore cluster if it has >1 major representative
+					if ( ( !is.na( best ) && is.na( as.integer(t[2]))) || as.integer( t[2] ) < best ) {
+						#Get TP and FP
+						cID <- names( t[ 1 ] )
+						if ( cID == "shuffled" ) {
+							FN <- length(v)-best
+							TN <- best
+							#cat( cID,TN,FN,"\n",sep="\t")
+						}
+						else {
+							TP[[ i ]] <- best
+							FP[[ i ]] <- length(v)-best
+							#cat( cID,best,length(v)-best,"\n",sep="\t")
+						}
+						i <- i + 1
 					}
-					else {
-						#cat( cID, " " )
-						TP[[ i - 1 ]] <- best
-						#cat(best,"\n")
-						FP[[ i -1 ]] <- length(v)-best
-					}
-					i <- i + 1
 				}
 			}
+			SENS = sum( TP, na.rm = T ) / ( sum( TP, na.rm = T ) +FN )
+			SPEC = TN/(sum( FP, na.rm = T  ) + TN )
+			cat(MP,Xi,clusters,sum(TP, na.rm = T ),TN,sum(FP,na.rm = T ),FN,SENS,SPEC,m,"\n",sep="\t", file="cluster_bench.tsv", append=T)
+			#out[[ i ]] <- c(MP, Xi, clusters, SENS, SPEC, m)
 		}
-		SENS = sum(TP)/(sum(TP)+FN)
-		SPEC = TN/(sum(FP)+TN)
-		points( (1-SPEC), SENS , pch=which(mp == MP) , col=palette()[which(xi == Xi)] )
-		out[[ i ]] <- c(MP, Xi, NumClust, SENS, SPEC)
 	}
 }
-g <- Filter(Negate(is.null), out)
-gg <- as.data.frame(matrix(unlist(g), ncol=5, byrow=T))
-p <- ggplot(gg, aes(1-V5,V4, color=factor(V2), shape=factor(V1))) + 
-	geom_point(size=2, stroke=1.5) + 
-	theme_bw() + 
-	scale_color_brewer(palette = "Set1") + 
+gg <- read.table("cluster_bench.tsv",header=T)
+# Youden's J statistic can be calculated in bash with somethig like: 
+# tail -n +2 cluster_bench.tsv | awk 'OFS="\t" {print $1,$2,$10,$3,$8,$9,(($4/($4+$7))+($5/($5+$6))-1)}' | sort -k 7rn
+
+colXi <- cbind (unique(gg$Xi), palette(rainbow(6))  )
+p <- ggplot(gg) + 
+	geom_point( data=subset( gg, Minimum == TRUE), aes( 1-SPEC, SENS, color=factor(Xi)
+		, shape=factor(minPts)), size=2, stroke=1 ) + 
+	geom_point(  data=subset( gg, Minimum==FALSE), aes( 1-SPEC, SENS, color=factor(Xi), fill=factor(Xi)
+		, shape=factor(minPts)), size=2, stroke=1, show.legend=F ) + 
 	scale_y_continuous(lim=c(0,1),breaks=seq(0,1,0.1)) + 
-	scale_x_continuous(lim=c(0,0.5),breaks=seq(0,1,0.1)) +
-	scale_shape_manual(values=c(1,2,3,5)) +
-	labs( title="Optics clustering benchmark",
+	scale_x_continuous(lim=c(0,1),breaks=seq(0,1,0.1)) +
+	scale_shape_manual(values=c(21,22,23,24,25)) +
+	scale_color_manual( values=palette(rainbow(6)), name="Steepness\nthreshold Xi") + 
+	scale_fill_manual(values=palette(rainbow(6))) +
+	labs( title="Optics clustering accuracy",
 	x = "False positive rate",
 	y = "Sensitivty",
 	color = "Steepness\nthreshold Xi", 
 	shape = "Minimum\npoints") +
-	geom_abline(intercept=0, slope=1, linetype=3)
-l <- ggplot(gg, aes(factor(V2),V3,group=factor(V1))) + geom_line(aes(color=factor(V1))) + geom_abline(intercept=33, slope=0, linetype=2) + 
-	geom_point(aes(factor(V2),V3, color=factor(V1)), size=2) +
-	labs( title="Clustering output of Optics parameters",
+	geom_abline(intercept=0, slope=1, linetype=3) 
+	
+l <- ggplot(gg, aes(factor(Xi), clusters, group=interaction(minPts,Minimum), shape=factor(Minimum), color=factor(minPts))) + 
+	geom_line(aes(linetype=factor(Minimum))) + 
+	geom_point(size=2, aes(stroke=1)) +
+	geom_abline(intercept=33, slope=0, linetype=2) + 
+	guides(shape=F) + 
+	labs( title="Optics clustering fragmentation",
 		x = "Steepness threshold Xi",
 		y = "# of clusters",
-		color = "Minimum\npoints") +
+		color = "Minimum\npoints",
+		linetype = "Minimum\nCluster\nExtraction") +
 	theme_bw()
-
 
 
 #FN <- list(FN, (as.integer( idT[ names(t[1]) ] ) - best ))

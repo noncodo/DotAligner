@@ -4,3 +4,12 @@
 
 Usage: 
 `./launcher.sh file.fasta`
+
+*Dependencies (version tested):* 
+-DotAligner (0.3)
+
+-ViennaRNA (2.1.3)
+
+-LocaRNA (1.8.11)
+
+-R (3.2.3)

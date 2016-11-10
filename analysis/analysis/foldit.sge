@@ -1,8 +1,0 @@
- 	FILE=$( ls split | head -n ${SGE_TASK_ID} | tail -n 1 )
- 	mkdir /tmp/${JOB_ID}_${SGE_TASK_ID}
- 	cd /tmp/${JOB_ID}_${SGE_TASK_ID}
- 	pwd
-/share/ClusterShare/software/contrib/gi/ViennaRNA/2.1.3/bin/RNAfold -p --noPS --noLP < /share/ScratchGeneral/marsmi/eCLIP/filtered_peaks_RNAbound_ge75_le200_controls/split/$FILE > ${SGE_TASK_ID}.log
- 	mv *ps /share/ScratchGeneral/marsmi/eCLIP/filtered_peaks_RNAbound_ge75_le200_controls/ps
-mv ${SGE_TASK_ID}.log /share/ScratchGeneral/marsmi/eCLIP/filtered_peaks_RNAbound_ge75_le200_controls/logs/foldit_${SGE_TASK_ID}.log
-rm -rf /tmp/${JOB_ID}_${SGE_TASK_ID}
